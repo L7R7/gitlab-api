@@ -1,0 +1,16 @@
+/
+└─ api/
+   └─ v4/
+      ├─ metadata/
+      │  └─•
+      ├─ projects/
+      │  ├─•
+      │  ┆
+      │  ┆
+      │  └─ <project ID::Id Project>/
+      │     ├─ jobs/
+      │     │  └─ <job ID::Id Job>/
+      │     │     └─•
+      │     └─•
+      └─ version/
+         └─•

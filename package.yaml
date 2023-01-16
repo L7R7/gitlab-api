@@ -1,0 +1,131 @@
+name: gitlab-api
+version: 0.0.0.1
+github: "L7R7/gitlab-api"
+license: BSD3
+author: "Leonhard Riedißer"
+maintainer: "leo008180@googlemail.com"
+copyright: "2023 Leonhard Riedißer"
+# language: GHC2021
+
+extra-source-files:
+  - README.md
+  - ChangeLog.md
+  - .sydtest.yaml
+  - test/resources/**/*
+
+description: Please see the README on GitHub at <https://github.com/L7R7/gitlab-api#readme>
+
+ghc-options:
+  - -fwrite-ide-info
+  - -hiedir=.hie
+  - -Wall
+  - -Wcompat
+  - -Widentities
+  - -Wincomplete-uni-patterns
+  - -Wincomplete-record-updates
+  - -Wredundant-constraints
+  - -fhide-source-paths
+  - -Wpartial-fields
+  - -Wmissing-deriving-strategies
+  - -Wunused-packages
+  - -Wmissing-export-lists
+
+dependencies:
+  - base >= 4.7 && < 5
+
+default-extensions:
+  - DerivingStrategies
+  - OverloadedStrings
+  - StrictData
+  - DeriveGeneric # to be removed after switching to GHC2021
+  - TypeApplications
+  - TypeOperators
+
+library:
+  source-dirs: src
+  ghc-options:
+    - -O2
+    - -flate-specialise
+    - -fspecialise-aggressively
+    - -frefinement-level-hole-fits=3
+  dependencies:
+    - aeson
+    - autodocodec
+    # - autodocodec-openapi3
+    - either
+    # - containers
+    # - http-api-data
+    # - http-types
+    - network-uri
+    # - openapi3
+    - path
+    - scientific
+    - servant >= 0.19
+    - servant-server
+    - text
+    - validity
+    - validity-network-uri
+    - validity-path
+    - validity-text
+    - validity-time
+    - time
+    # - uuid
+
+tests:
+  unit-test:
+    main: Spec.hs
+    source-dirs: test/unit
+    build-tools: sydtest-discover
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+      - -Wno-missing-export-lists
+      - -Wno-partial-type-signatures
+    dependencies:
+      - gitlab-api
+      # - aeson
+      # - genvalidity-network-uri
+      - genvalidity-scientific
+      - genvalidity-sydtest
+      - genvalidity-sydtest-aeson
+      # - genvalidity-containers
+      - genvalidity-text
+      - genvalidity-path
+      # - http-client
+      # - http-client-tls
+      - network-uri
+      - path
+      - genvalidity-time
+      # - genvalidity-uuid
+      # - servant >= 0.19
+      # - servant-client
+      # - servant-server
+      - sydtest >= 0.8.0.0
+      - sydtest-aeson
+      # - validity-path
+      # - sydtest-hedgehog
+      # - sydtest-wai >= 0.2.0.0
+      - time
+      # - uuid
+  api-test:
+    main: Main.hs
+    source-dirs: test/api
+    build-tools: sydtest-discover
+    default-extensions:
+      - DataKinds
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+      - -Wno-partial-type-signatures
+    dependencies:
+      - gitlab-api
+      - extra
+      - genvalidity-sydtest
+      - http-client
+      - http-client-tls
+      - http-types
+      - servant-client
+      - servant-server
+      - sydtest

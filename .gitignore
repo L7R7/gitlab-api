@@ -1,0 +1,13 @@
+.stack-work/
+.out/
+.idea/
+.vscode/
+target/
+*.iml
+*.hie
+.hie/
+*~
+.hspec-failures
+tags
+practice-journal-exe
+lcov.info

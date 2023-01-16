@@ -1,0 +1,19 @@
+{
+    "allow_failure": false,
+    "created_at": "2023-01-10T00:00:00Z",
+    "duration": 45.4,
+    "finished_at": "2023-01-12T00:00:00Z",
+    "id": 456,
+    "name": "compile",
+    "queued_duration": 12.6,
+    "ref": "main",
+    "stage": "build",
+    "started_at": "2023-01-11T00:00:00Z",
+    "status": "success",
+    "tag": true,
+    "tag_list": [
+        "my-tag",
+        "my-other-tag"
+    ],
+    "web_url": "https://my.gitlab.com/my-group/my-project/-/jobs/4028634"
+}

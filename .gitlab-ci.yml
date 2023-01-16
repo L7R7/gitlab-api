@@ -1,0 +1,17 @@
+stages:
+  - build
+
+variables:
+  STACK_ROOT: "${CI_PROJECT_DIR}/.stack-root"
+
+build:
+  stage: build
+  image: haskell:9.2.5
+  cache:
+    paths:
+      - .stack
+      - .stack-work
+      - .stack-root
+      - target
+  script:
+    - stack test

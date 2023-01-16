@@ -1,0 +1,6 @@
+{
+    "id": 123,
+    "name": "my project",
+    "path_with_namespace": "my-team/my-project/",
+    "web_url": "https://my.gitlab.com/pipelines/411"
+}

@@ -1,0 +1,31 @@
+resolver: lts-20.6
+
+packages:
+  - .
+
+extra-deps:
+  - github: NorfairKing/validity
+    commit: 657cf4bdc2731387abea6e707b88d381d5218616
+    subdirs:
+      - genvalidity
+      - genvalidity-sydtest
+      - genvalidity-sydtest-aeson
+      - genvalidity-containers
+      - genvalidity-network-uri
+      - genvalidity-text
+      - genvalidity-time
+      - genvalidity-uuid
+      - validity
+      - validity-aeson
+      - validity-bytestring
+      - validity-containers
+      - validity-network-uri
+      - validity-scientific
+      - validity-text
+      - validity-time
+      - validity-unordered-containers
+      - validity-uuid
+      - validity-vector
+
+ghc-options:
+  $everything: -split-sections
