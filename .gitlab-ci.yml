@@ -14,4 +14,7 @@ build:
       - .stack-root
       - target
   script:
-    - stack test
+    - stack test --system-ghc
+  artifacts:
+    paths:
+      - test/resources/
