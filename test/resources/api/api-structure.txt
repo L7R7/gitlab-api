@@ -7,9 +7,9 @@
       │  ├─•
       │  ┆
       │  ┆
-      │  └─ <project ID::Id Project>/
+      │  └─ <project ID::Id * Project>/
       │     ├─ jobs/
-      │     │  └─ <job ID::Id Job>/
+      │     │  └─ <job ID::Id * Job>/
       │     │     └─•
       │     └─•
       └─ version/
