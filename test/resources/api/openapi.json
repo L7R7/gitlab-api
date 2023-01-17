@@ -1,0 +1,334 @@
+{
+    "components": {
+        "schemas": {
+            "Job": {
+                "properties": {
+                    "allow_failure": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "additionalProperties": true,
+                        "description": "LocalTime"
+                    },
+                    "duration": {
+                        "type": "number"
+                    },
+                    "failure_reason": {
+                        "type": "string"
+                    },
+                    "finished_at": {
+                        "additionalProperties": true,
+                        "description": "LocalTime"
+                    },
+                    "id": {
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "queued_duration": {
+                        "type": "number"
+                    },
+                    "ref": {
+                        "type": "string"
+                    },
+                    "stage": {
+                        "type": "string"
+                    },
+                    "started_at": {
+                        "additionalProperties": true,
+                        "description": "LocalTime"
+                    },
+                    "status": {
+                        "enum": [
+                            "unknown",
+                            "canceled",
+                            "created",
+                            "failed",
+                            "manual",
+                            "pending",
+                            "preparing",
+                            "running",
+                            "scheduled",
+                            "skipped",
+                            "success",
+                            "success-with-warnings",
+                            "waiting_for_resource"
+                        ],
+                        "type": "string"
+                    },
+                    "tag": {
+                        "type": "boolean"
+                    },
+                    "tag_list": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "web_url": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "status",
+                    "stage",
+                    "name",
+                    "ref",
+                    "tag",
+                    "allow_failure",
+                    "created_at",
+                    "started_at",
+                    "finished_at",
+                    "duration",
+                    "queued_duration",
+                    "web_url",
+                    "tag_list"
+                ],
+                "type": "object"
+            },
+            "Metadata": {
+                "properties": {
+                    "revision": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "version",
+                    "revision"
+                ],
+                "type": "object"
+            },
+            "Project": {
+                "properties": {
+                    "default_branch": {
+                        "description": "default branch of the project. Will be missing if the project is empty",
+                        "type": "string"
+                    },
+                    "id": {
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "path_with_namespace": {
+                        "additionalProperties": true,
+                        "description": "Path"
+                    },
+                    "web_url": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "web_url",
+                    "path_with_namespace"
+                ],
+                "type": "object"
+            },
+            "Version": {
+                "properties": {
+                    "revision": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "version",
+                    "revision"
+                ],
+                "type": "object"
+            }
+        }
+    },
+    "info": {
+        "title": "",
+        "version": ""
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/api/v4/metadata": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Metadata"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `PRIVATE-TOKEN`"
+                    }
+                }
+            }
+        },
+        "/api/v4/projects": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Project"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `PRIVATE-TOKEN`"
+                    }
+                }
+            }
+        },
+        "/api/v4/projects/{project ID}": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "project ID",
+                        "required": true,
+                        "schema": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Project"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `PRIVATE-TOKEN`"
+                    },
+                    "404": {
+                        "description": "`project ID` not found"
+                    }
+                }
+            }
+        },
+        "/api/v4/projects/{project ID}/jobs/{job ID}": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "project ID",
+                        "required": true,
+                        "schema": {}
+                    },
+                    {
+                        "in": "path",
+                        "name": "job ID",
+                        "required": true,
+                        "schema": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Job"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `PRIVATE-TOKEN`"
+                    },
+                    "404": {
+                        "description": "`project ID` or `job ID` not found"
+                    }
+                }
+            }
+        },
+        "/api/v4/version": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Version"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `PRIVATE-TOKEN`"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -119,11 +119,15 @@ tests:
       - -Wno-partial-type-signatures
     dependencies:
       - gitlab-api
+      - autodocodec
+      - autodocodec-openapi3
       - extra
       - genvalidity-sydtest
       - http-client
       - http-client-tls
       - http-types
+      - openapi3
       - servant-client
+      - servant-openapi3 >= 2.0.1.5
       - servant-server
       - sydtest
