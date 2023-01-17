@@ -1,6 +1,4 @@
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DerivingVia #-}
 
 module Project (Project (..), API, ProjectAPI (..), SingleProjectAPI (..), JobAPI (..)) where
 

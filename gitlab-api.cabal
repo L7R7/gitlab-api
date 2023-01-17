@@ -46,11 +46,9 @@ library
       src
   default-extensions:
       DerivingStrategies
+      DerivingVia
       OverloadedStrings
       StrictData
-      DeriveGeneric
-      TypeApplications
-      TypeOperators
   ghc-options: -fwrite-ide-info -hiedir=.hie -Wall -Wcompat -Widentities -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -fhide-source-paths -Wpartial-fields -Wmissing-deriving-strategies -Wunused-packages -Wmissing-export-lists -O2 -flate-specialise -fspecialise-aggressively -frefinement-level-hole-fits=3
   build-depends:
       aeson
@@ -69,7 +67,7 @@ library
     , validity-path
     , validity-text
     , validity-time
-  default-language: Haskell2010
+  default-language: GHC2021
 
 test-suite api-test
   type: exitcode-stdio-1.0
@@ -84,11 +82,9 @@ test-suite api-test
       test/api
   default-extensions:
       DerivingStrategies
+      DerivingVia
       OverloadedStrings
       StrictData
-      DeriveGeneric
-      TypeApplications
-      TypeOperators
       DataKinds
   ghc-options: -fwrite-ide-info -hiedir=.hie -Wall -Wcompat -Widentities -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -fhide-source-paths -Wpartial-fields -Wmissing-deriving-strategies -Wunused-packages -Wmissing-export-lists -threaded -rtsopts -with-rtsopts=-N -Wno-partial-type-signatures
   build-tool-depends:
@@ -104,7 +100,7 @@ test-suite api-test
     , servant-client
     , servant-server
     , sydtest
-  default-language: Haskell2010
+  default-language: GHC2021
 
 test-suite unit-test
   type: exitcode-stdio-1.0
@@ -120,11 +116,9 @@ test-suite unit-test
       test/unit
   default-extensions:
       DerivingStrategies
+      DerivingVia
       OverloadedStrings
       StrictData
-      DeriveGeneric
-      TypeApplications
-      TypeOperators
   ghc-options: -fwrite-ide-info -hiedir=.hie -Wall -Wcompat -Widentities -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -fhide-source-paths -Wpartial-fields -Wmissing-deriving-strategies -Wunused-packages -Wmissing-export-lists -threaded -rtsopts -with-rtsopts=-N -Wno-missing-export-lists -Wno-partial-type-signatures
   build-tool-depends:
       sydtest-discover:sydtest-discover
@@ -142,4 +136,4 @@ test-suite unit-test
     , sydtest >=0.8.0.0
     , sydtest-aeson
     , time
-  default-language: Haskell2010
+  default-language: GHC2021

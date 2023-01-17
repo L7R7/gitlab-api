@@ -1,5 +1,4 @@
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DerivingVia #-}
 
 module Meta (API, MetaAPI (..), Version (..), Metadata (..)) where
 

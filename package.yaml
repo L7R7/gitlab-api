@@ -5,7 +5,7 @@ license: BSD3
 author: "Leonhard Riedißer"
 maintainer: "leo008180@googlemail.com"
 copyright: "2023 Leonhard Riedißer"
-# language: GHC2021
+language: GHC2021
 
 extra-source-files:
   - README.md
@@ -35,11 +35,9 @@ dependencies:
 
 default-extensions:
   - DerivingStrategies
+  - DerivingVia
   - OverloadedStrings
   - StrictData
-  - DeriveGeneric # to be removed after switching to GHC2021
-  - TypeApplications
-  - TypeOperators
 
 library:
   source-dirs: src

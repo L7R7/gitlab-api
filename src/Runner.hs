@@ -1,7 +1,3 @@
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-
 module Runner (Runner (..), Description (..), IpAddress (..), RunnerType (..), RunnerStatus (..)) where
 
 import Autodocodec

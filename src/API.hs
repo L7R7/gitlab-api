@@ -1,6 +1,4 @@
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE TypeOperators #-}
 
 module API (API, GitlabAPI (..)) where
 

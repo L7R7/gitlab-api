@@ -1,7 +1,3 @@
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-
 module Job (Job (..), JobStatus (..), Tag (..), Stage (..)) where
 
 import Autodocodec
