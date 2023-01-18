@@ -10,7 +10,7 @@ import Data.Time
 import Job
 import Lib
 import Network.URI.Static
-import Test.Syd hiding (runner)
+import Test.Syd
 import Test.Syd.Aeson
 import Test.Syd.Validity
 import Test.Syd.Validity.Aeson

@@ -6,7 +6,7 @@ import Data.GenValidity.Path ()
 import Data.GenValidity.Text ()
 import Lib
 import Runner
-import Test.Syd hiding (runner)
+import Test.Syd
 import Test.Syd.Aeson
 import Test.Syd.Validity
 import Test.Syd.Validity.Aeson

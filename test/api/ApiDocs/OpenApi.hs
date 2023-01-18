@@ -5,10 +5,10 @@ module ApiDocs.OpenApi () where
 import Autodocodec
 import Autodocodec.OpenAPI ()
 import Data.OpenApi (ToParamSchema (..), ToSchema (..))
-import qualified Job
+import Job qualified
 import Lib
-import qualified Meta
-import qualified Project
+import Meta qualified
+import Project qualified
 
 instance ToParamSchema (Id a) where
   toParamSchema _ = mempty -- todo

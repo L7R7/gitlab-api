@@ -6,7 +6,7 @@ import Autodocodec
 import Data.Aeson (FromJSON, ToJSON)
 import Data.Validity
 import Data.Validity.Path ()
-import qualified Job 
+import Job qualified
 import Lib (Id, Name, Ref, Url)
 import Path
 import Servant

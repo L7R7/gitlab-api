@@ -9,7 +9,6 @@ import Data.Validity
 import Data.Validity.Text ()
 import GHC.Generics
 import Servant
-import Servant.API.Generic
 
 type API = NamedRoutes MetaAPI
 

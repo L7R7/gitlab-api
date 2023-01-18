@@ -3,10 +3,9 @@
 module API (API, GitlabAPI (..)) where
 
 import GHC.Generics
-import qualified Meta 
-import qualified Project 
+import Meta qualified
+import Project qualified
 import Servant
-import Servant.API.Generic
 
 type API = Header "PRIVATE-TOKEN" String :> "api" :> "v4" :> NamedRoutes GitlabAPI
 

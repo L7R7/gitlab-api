@@ -5,7 +5,7 @@ module ProjectSpec (spec) where
 import API
 import Data.Either
 import Data.Either.Extra
-import qualified Job
+import Job qualified
 import Lib
 import Network.HTTP.Types
 import Project
