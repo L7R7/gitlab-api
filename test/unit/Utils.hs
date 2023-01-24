@@ -16,4 +16,4 @@ instance GenValid (Url a) where
   genValid = pure $ Url $ URI "https:" (Just (URIAuth "" "www.gitlab.com" "")) "/test/test" "" ""
   shrinkValid _ = []
 
-instance GenValid (Duration)
+instance GenValid Duration
