@@ -1,6 +1,12 @@
 /
 └─ api/
    └─ v4/
+      ├─ groups/
+      │  ├─•
+      │  ┆
+      │  ┆
+      │  └─ <group ID::Id * Group>/
+      │     └─•
       ├─ metadata/
       │  └─•
       ├─ projects/

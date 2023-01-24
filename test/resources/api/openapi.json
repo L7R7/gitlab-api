@@ -1,6 +1,32 @@
 {
     "components": {
         "schemas": {
+            "Group": {
+                "properties": {
+                    "full_path": {
+                        "additionalProperties": true,
+                        "description": "Path"
+                    },
+                    "id": {
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "web_url": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "web_url",
+                    "full_path"
+                ],
+                "type": "object"
+            },
             "Job": {
                 "properties": {
                     "allow_failure": {
@@ -158,6 +184,76 @@
     },
     "openapi": "3.0.0",
     "paths": {
+        "/api/v4/groups": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Group"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `PRIVATE-TOKEN`"
+                    }
+                }
+            }
+        },
+        "/api/v4/groups/{group ID}": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "group ID",
+                        "required": true,
+                        "schema": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Group"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `PRIVATE-TOKEN`"
+                    },
+                    "404": {
+                        "description": "`group ID` not found"
+                    }
+                }
+            }
+        },
         "/api/v4/metadata": {
             "get": {
                 "parameters": [

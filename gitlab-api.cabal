@@ -21,6 +21,7 @@ extra-source-files:
     .sydtest.yaml
     test/resources/api/api-structure.txt
     test/resources/api/openapi.json
+    test/resources/group/group.json
     test/resources/job/no-failure-reason.json
     test/resources/job/with-failure-reason.json
     test/resources/meta/metadata.json
@@ -36,6 +37,7 @@ source-repository head
 library
   exposed-modules:
       API
+      Group
       Job
       Lib
       Meta
@@ -76,6 +78,7 @@ test-suite api-test
   other-modules:
       ApiDocs.OpenApi
       ApiSpec
+      GroupSpec
       MetaSpec
       ProjectSpec
       Spec
@@ -112,6 +115,7 @@ test-suite unit-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      GroupSpec
       JobSpec
       MetaSpec
       ProjectSpec
