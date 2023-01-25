@@ -72,7 +72,7 @@ library
     , validity-time
   default-language: GHC2021
 
-test-suite api-test
+test-suite 02-api-test
   type: exitcode-stdio-1.0
   main-is: Main.hs
   other-modules:

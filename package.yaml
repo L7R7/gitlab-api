@@ -70,7 +70,7 @@ library:
     # - uuid
 
 tests:
-  unit-test:
+  01-unit-test:
     main: Spec.hs
     source-dirs: test/unit
     build-tools: sydtest-discover
@@ -106,7 +106,7 @@ tests:
       # - sydtest-wai >= 0.2.0.0
       - time
       # - uuid
-  api-test:
+  02-api-test:
     main: Main.hs
     source-dirs: test/api
     build-tools: sydtest-discover
