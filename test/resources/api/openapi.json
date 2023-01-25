@@ -194,6 +194,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "allowEmptyValue": true,
+                        "in": "query",
+                        "name": "all_available",
+                        "schema": {
+                            "default": false,
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {
@@ -211,7 +220,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `PRIVATE-TOKEN`"
+                        "description": "Invalid `all_available` or `PRIVATE-TOKEN`"
                     }
                 }
             }

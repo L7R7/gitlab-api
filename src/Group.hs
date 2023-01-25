@@ -38,7 +38,7 @@ instance HasCodec Group where
 type API = "groups" :> NamedRoutes GroupAPI
 
 data GroupAPI mode = GroupAPI
-  { getAllGroups :: mode :- Get '[JSON] [Group],
+  { getAllGroups :: mode :- QueryFlag "all_available" :> Get '[JSON] [Group],
     singleGroup :: mode :- Capture "group ID" (Id Group) :> NamedRoutes SingleGroupAPI
   }
   deriving stock (Generic)

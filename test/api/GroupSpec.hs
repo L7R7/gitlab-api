@@ -16,7 +16,11 @@ import Test.Syd.Validity
 spec :: TestDef ((ClientEnv, GitlabAPI (AsClientT ClientM)) : otherOuters) ()
 spec = beforeAllWith (pure . fmap group) $ describe "group" $ do
   itWithOuter "all groups" $ \(clientEnv, GroupAPI allGroups _) -> do
-    res <- runClientM allGroups clientEnv
+    res <- runClientM (allGroups False) clientEnv
+    res `shouldSatisfy` isRight
+    shouldBeValid $ eitherToMaybe res
+  itWithOuter "all groups (all_available)" $ \(clientEnv, GroupAPI allGroups _) -> do
+    res <- runClientM (allGroups True) clientEnv
     res `shouldSatisfy` isRight
     shouldBeValid $ eitherToMaybe res
   describe "single group" $
