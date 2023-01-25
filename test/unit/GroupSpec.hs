@@ -20,7 +20,7 @@ spec = do
   jsonSpec @Group
   describe "golden tests" $ do
     it "full group" $ do
-      let project = Group (Id 123) (Name "my group") (Url $$(staticURI "https://my.gitlab.com/my-group")) [reldir|my-team/my-project|]
-      pureGoldenJSONValueFile "test/resources/group/group.json" project
+      let group = Group (Id 123) (Name "my group") (Url $$(staticURI "https://my.gitlab.com/my-group")) [reldir|my-team/my-group|]
+      pureGoldenJSONValueFile "test/resources/group/group.json" group
 
 instance GenValid Group

@@ -27,13 +27,13 @@ instance HasCodec Group where
     object "Group" $
       Group
         <$> requiredField' "id"
-          .= groupId
+        .= groupId
         <*> requiredField' "name"
-          .= groupName
+        .= groupName
         <*> requiredField' "web_url"
-          .= groupWebUrl
+        .= groupWebUrl
         <*> requiredField' "full_path"
-          .= groupFullPath
+        .= groupFullPath
 
 type API = "groups" :> NamedRoutes GroupAPI
 
