@@ -263,6 +263,74 @@
                 }
             }
         },
+        "/api/v4/groups/{group ID}/projects": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "group ID",
+                        "required": true,
+                        "schema": {}
+                    },
+                    {
+                        "allowEmptyValue": true,
+                        "in": "query",
+                        "name": "include_subgroups",
+                        "schema": {
+                            "default": false,
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "allowEmptyValue": true,
+                        "in": "query",
+                        "name": "with_shared",
+                        "schema": {
+                            "default": false,
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "allowEmptyValue": true,
+                        "in": "query",
+                        "name": "archived",
+                        "schema": {
+                            "default": false,
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Project"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `archived` or `with_shared` or `include_subgroups` or `PRIVATE-TOKEN`"
+                    },
+                    "404": {
+                        "description": "`group ID` not found"
+                    }
+                }
+            }
+        },
         "/api/v4/metadata": {
             "get": {
                 "parameters": [

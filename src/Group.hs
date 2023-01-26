@@ -8,6 +8,7 @@ import Data.Validity
 import Data.Validity.Path ()
 import Lib (Id, Name, Url)
 import Path
+import Project qualified
 import Servant
 import Servant.API.Generic
 
@@ -27,13 +28,13 @@ instance HasCodec Group where
     object "Group" $
       Group
         <$> requiredField' "id"
-        .= groupId
+          .= groupId
         <*> requiredField' "name"
-        .= groupName
+          .= groupName
         <*> requiredField' "web_url"
-        .= groupWebUrl
+          .= groupWebUrl
         <*> requiredField' "full_path"
-        .= groupFullPath
+          .= groupFullPath
 
 type API = "groups" :> NamedRoutes GroupAPI
 
@@ -44,6 +45,13 @@ data GroupAPI mode = GroupAPI
   deriving stock (Generic)
 
 data SingleGroupAPI mode = SingleGroupAPI
-  { getGroup :: mode :- Get '[JSON] Group
+  { getGroup :: mode :- Get '[JSON] Group,
+    getProjects ::
+      mode
+        :- "projects"
+          :> QueryFlag "include_subgroups"
+          :> QueryFlag "with_shared"
+          :> QueryFlag "archived"
+          :> Get '[JSON] [Project.Project]
   }
   deriving stock (Generic)
