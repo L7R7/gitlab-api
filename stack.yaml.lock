@@ -253,7 +253,7 @@ packages:
     url: https://github.com/NorfairKing/validity/archive/657cf4bdc2731387abea6e707b88d381d5218616.tar.gz
 snapshots:
 - completed:
-    sha256: bfafe5735ccb74527d754b1f9999ded72d7c3a6c3a88529449661431ccfbd6cc
-    size: 649327
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/8.yaml
-  original: lts-20.8
+    sha256: adbc602422dde10cc330175da7de8609e70afc41449a7e2d6e8b1827aa0e5008
+    size: 649342
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/11.yaml
+  original: lts-20.11
