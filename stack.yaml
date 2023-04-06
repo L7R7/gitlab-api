@@ -26,6 +26,7 @@ extra-deps:
       - validity-unordered-containers
       - validity-uuid
       - validity-vector
+  - sydtest-0.14.0.0
 
 ghc-options:
   $everything: -split-sections

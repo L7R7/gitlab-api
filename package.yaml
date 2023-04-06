@@ -99,7 +99,7 @@ tests:
       # - servant >= 0.19
       # - servant-client
       # - servant-server
-      - sydtest >= 0.8.0.0
+      - sydtest >= 0.14.0.0
       - sydtest-aeson
       # - validity-path
       # - sydtest-hedgehog

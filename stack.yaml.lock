@@ -251,6 +251,13 @@ packages:
   original:
     subdir: validity-vector
     url: https://github.com/NorfairKing/validity/archive/657cf4bdc2731387abea6e707b88d381d5218616.tar.gz
+- completed:
+    hackage: sydtest-0.14.0.0@sha256:e9804de119aec5129028dc3219a0d925d5118f09d4d49221c244d006e64541c6,3959
+    pantry-tree:
+      sha256: 77a8cc0366f802106a15b7cdf1b1e26524795ba8499348908834f10b8dcf5a86
+      size: 3785
+  original:
+    hackage: sydtest-0.14.0.0
 snapshots:
 - completed:
     sha256: adbc602422dde10cc330175da7de8609e70afc41449a7e2d6e8b1827aa0e5008
