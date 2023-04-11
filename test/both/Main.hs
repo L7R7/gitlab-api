@@ -5,12 +5,15 @@ import Data.Proxy
 import Network.HTTP.Client (newManager)
 import Network.HTTP.Client.TLS
 import Servant.Client
-import Spec
+import qualified Unit.Spec
+import qualified Api.Spec
 import System.Environment (lookupEnv)
 import Test.Syd
 
 main :: IO ()
-main = sydTest $ beforeAll ((,) <$> clientEnvSetup <*> gitlabAPIClient) spec
+main = sydTest $ do
+  beforeAll ((,) <$> clientEnvSetup <*> gitlabAPIClient) Api.Spec.spec
+  Unit.Spec.spec
 
 privateTokenSetup :: IO String
 privateTokenSetup = do

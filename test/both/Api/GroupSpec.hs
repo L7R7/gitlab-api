@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module GroupSpec (spec) where
+module Api.GroupSpec (spec) where
 
 import API
 import Data.Either

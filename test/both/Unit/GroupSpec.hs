@@ -2,7 +2,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module GroupSpec where
+module Unit.GroupSpec where
 
 import Data.GenValidity.Path ()
 import Group

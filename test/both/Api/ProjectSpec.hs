@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module ProjectSpec (spec) where
+module Api.ProjectSpec (spec) where
 
 import API
 import Data.Either

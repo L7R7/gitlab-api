@@ -26,7 +26,13 @@ extra-deps:
       - validity-unordered-containers
       - validity-uuid
       - validity-vector
-  - sydtest-0.14.0.0
+  # - sydtest-0.14.0.0
+  - github: NorfairKing/sydtest
+    commit: 3501bfb908a384e1f90e174f9b0f6e0a31c6dc5d
+    subdirs: 
+      - sydtest
+      - sydtest-aeson
+      - sydtest-discover
 
 ghc-options:
   $everything: -split-sections

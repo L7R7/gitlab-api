@@ -1,4 +1,4 @@
-module MetaSpec (spec) where
+module Api.MetaSpec (spec) where
 
 import API
 import Data.Either

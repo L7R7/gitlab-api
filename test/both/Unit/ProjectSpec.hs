@@ -2,7 +2,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module ProjectSpec where
+module Unit.ProjectSpec where
 
 import Data.GenValidity.Path ()
 import Lib

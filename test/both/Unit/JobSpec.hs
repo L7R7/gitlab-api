@@ -1,7 +1,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module JobSpec where
+module Unit.JobSpec where
 
 import Data.GenValidity.Path ()
 import Data.GenValidity.Text ()

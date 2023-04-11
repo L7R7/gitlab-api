@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module MetaSpec where
+module Unit.MetaSpec where
 
 import Data.GenValidity.Path ()
 import Meta

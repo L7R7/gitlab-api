@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module RunnerSpec where
+module Unit.RunnerSpec where
 
 import Data.GenValidity.Path ()
 import Data.GenValidity.Text ()

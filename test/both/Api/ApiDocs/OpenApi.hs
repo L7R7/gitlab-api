@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module ApiDocs.OpenApi () where
+module Api.ApiDocs.OpenApi () where
 
 import Autodocodec
 import Autodocodec.OpenAPI ()

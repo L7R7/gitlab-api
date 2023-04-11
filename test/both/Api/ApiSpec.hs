@@ -1,7 +1,7 @@
-module ApiSpec (spec) where
+module Api.ApiSpec (spec) where
 
 import API
-import ApiDocs.OpenApi ()
+import Api.ApiDocs.OpenApi ()
 import Data.OpenApi.Internal.Utils
 import Data.Proxy
 import Servant.OpenApi (HasOpenApi (..))

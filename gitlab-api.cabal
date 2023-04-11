@@ -72,63 +72,34 @@ library
     , validity-time
   default-language: GHC2021
 
-test-suite 01-unit-test
-  type: exitcode-stdio-1.0
-  main-is: Spec.hs
-  other-modules:
-      GroupSpec
-      JobSpec
-      MetaSpec
-      ProjectSpec
-      RunnerSpec
-      Utils
-      Paths_gitlab_api
-  hs-source-dirs:
-      test/unit
-  default-extensions:
-      DerivingStrategies
-      DerivingVia
-      OverloadedStrings
-      StrictData
-  ghc-options: -fwrite-ide-info -hiedir=.hie -Wall -Wcompat -Widentities -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -fhide-source-paths -Wpartial-fields -Wmissing-deriving-strategies -Wunused-packages -Wmissing-export-lists -threaded -rtsopts -with-rtsopts=-N -Wno-missing-export-lists -Wno-partial-type-signatures
-  build-tool-depends:
-      sydtest-discover:sydtest-discover
-  build-depends:
-      base >=4.7 && <5
-    , genvalidity-path
-    , genvalidity-scientific
-    , genvalidity-sydtest
-    , genvalidity-sydtest-aeson
-    , genvalidity-text
-    , genvalidity-time
-    , gitlab-api
-    , network-uri
-    , path
-    , sydtest >=0.14.0.0
-    , sydtest-aeson
-    , time
-  default-language: GHC2021
-
-test-suite 02-api-test
+test-suite test
   type: exitcode-stdio-1.0
   main-is: Main.hs
   other-modules:
-      ApiDocs.OpenApi
-      ApiSpec
-      GroupSpec
-      MetaSpec
-      ProjectSpec
-      Spec
+      Api.ApiDocs.OpenApi
+      Api.ApiSpec
+      Api.GroupSpec
+      Api.MetaSpec
+      Api.ProjectSpec
+      Api.Spec
+      Unit.GroupSpec
+      Unit.JobSpec
+      Unit.MetaSpec
+      Unit.ProjectSpec
+      Unit.RunnerSpec
+      Unit.Spec
+      Unit.Utils
+      Utils
       Paths_gitlab_api
   hs-source-dirs:
-      test/api
+      test/both
   default-extensions:
       DerivingStrategies
       DerivingVia
       OverloadedStrings
       StrictData
       DataKinds
-  ghc-options: -fwrite-ide-info -hiedir=.hie -Wall -Wcompat -Widentities -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -fhide-source-paths -Wpartial-fields -Wmissing-deriving-strategies -Wunused-packages -Wmissing-export-lists -threaded -rtsopts -with-rtsopts=-N -Wno-partial-type-signatures
+  ghc-options: -fwrite-ide-info -hiedir=.hie -Wall -Wcompat -Widentities -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -fhide-source-paths -Wpartial-fields -Wmissing-deriving-strategies -Wunused-packages -Wmissing-export-lists -threaded -rtsopts -with-rtsopts=-N -Wno-missing-export-lists -Wno-partial-type-signatures
   build-tool-depends:
       sydtest-discover:sydtest-discover
   build-depends:
@@ -136,14 +107,23 @@ test-suite 02-api-test
     , autodocodec-openapi3
     , base >=4.7 && <5
     , extra
+    , genvalidity-path
+    , genvalidity-scientific
     , genvalidity-sydtest
+    , genvalidity-sydtest-aeson
+    , genvalidity-text
+    , genvalidity-time
     , gitlab-api
     , http-client
     , http-client-tls
     , http-types
+    , network-uri
     , openapi3
+    , path
     , servant-client
     , servant-openapi3 >=2.0.1.5
     , servant-server
     , sydtest
+    , sydtest-aeson
+    , time
   default-language: GHC2021
