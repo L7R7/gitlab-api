@@ -1,0 +1,60 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.36.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           gitlab-api-servant
+version:        0.0.0.1
+description:    Please see the README on GitHub at <https://github.com/L7R7/gitlab-api#readme>
+homepage:       https://github.com/L7R7/gitlab-api#readme
+bug-reports:    https://github.com/L7R7/gitlab-api/issues
+author:         Leonhard Riedißer
+maintainer:     leo008180@googlemail.com
+copyright:      2023 Leonhard Riedißer
+license:        BSD3
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+    .sydtest.yaml
+
+source-repository head
+  type: git
+  location: https://github.com/L7R7/gitlab-api
+
+library
+  exposed-modules:
+      Gitlab.API.API
+      Gitlab.API.Group
+      Gitlab.API.Meta
+      Gitlab.API.Project
+  other-modules:
+      Paths_gitlab_api_servant
+  hs-source-dirs:
+      src
+  default-extensions:
+      DerivingStrategies
+      DerivingVia
+      OverloadedStrings
+      StrictData
+  ghc-options: -fwrite-ide-info -hiedir=.hie -Wall -Wcompat -Widentities -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -fhide-source-paths -Wpartial-fields -Wmissing-deriving-strategies -Wunused-packages -Wmissing-export-lists -O2 -flate-specialise -fspecialise-aggressively -frefinement-level-hole-fits=3
+  build-depends:
+      aeson
+    , autodocodec
+    , base >=4.7 && <5
+    , either
+    , gitlab-api-types
+    , network-uri
+    , path
+    , scientific
+    , servant >=0.19
+    , servant-server
+    , text
+    , time
+    , validity
+    , validity-network-uri
+    , validity-path
+    , validity-text
+    , validity-time
+  default-language: GHC2021
