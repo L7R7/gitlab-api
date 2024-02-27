@@ -25,7 +25,7 @@ pages:
   image: node:latest
   script:
     - npm install -g @redocly/cli
-    - redocly build-docs -o public/index.html test/resources/api/openapi.json
+    - redocly build-docs -o public/index.html gitlab-api-test/test/resources/api/openapi.json
   artifacts:
     paths:
       - public
