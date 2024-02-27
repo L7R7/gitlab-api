@@ -1,4 +1,4 @@
-module Gitlab.Package (Package(..), PackageLinks(..)) where
+module Gitlab.Package (Package (..), PackageLinks (..)) where
 
 import Autodocodec
 import Data.Aeson (FromJSON, ToJSON)

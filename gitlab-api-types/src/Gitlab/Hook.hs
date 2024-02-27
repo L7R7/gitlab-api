@@ -1,4 +1,4 @@
-module Gitlab.Hook(Hook(..)) where
+module Gitlab.Hook (Hook (..)) where
 
 import Autodocodec
 import Data.Aeson (FromJSON)

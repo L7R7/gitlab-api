@@ -13,7 +13,7 @@ import Network.URI
 import Path
 import Servant (FromHttpApiData, ToHttpApiData)
 
-newtype Id a = Id Int
+newtype Id a = Id {getId :: Int}
   deriving newtype (Eq, Show, FromHttpApiData, ToHttpApiData)
   deriving stock (Generic)
 
@@ -23,7 +23,7 @@ instance Validity (Id a) where
 instance HasCodec (Id a) where
   codec = dimapCodec Id (\(Id i) -> i) codec
 
-newtype Url a = Url URI
+newtype Url a = Url {getUrl :: URI}
   deriving newtype (Eq, Show, Validity)
 
 instance HasCodec (Url a) where
@@ -32,7 +32,7 @@ instance HasCodec (Url a) where
 instance HasCodec URI where
   codec = bimapCodec (maybeToRight "can't parse URI" . parseURI) show stringCodec
 
-newtype Ref = Ref Text
+newtype Ref = Ref {getRef :: Text}
   deriving newtype (Eq, Show)
   deriving stock (Generic)
 
@@ -42,7 +42,7 @@ instance Validity Ref where
 instance HasCodec Ref where
   codec = dimapCodec Ref (\(Ref txt) -> txt) codec
 
-newtype Name a = Name Text
+newtype Name a = Name {getName :: Text}
   deriving newtype (Eq, Show)
   deriving stock (Generic)
 
