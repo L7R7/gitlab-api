@@ -33,7 +33,6 @@ library
       DerivingStrategies
       DerivingVia
       OverloadedStrings
-      StrictData
   ghc-options: -fwrite-ide-info -hiedir=.hie -Wall -Wcompat -Widentities -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -fhide-source-paths -Wpartial-fields -Wmissing-deriving-strategies -Wunused-packages -Wmissing-export-lists -O2 -flate-specialise -fspecialise-aggressively -frefinement-level-hole-fits=3
   build-depends:
       base >=4.7 && <5
