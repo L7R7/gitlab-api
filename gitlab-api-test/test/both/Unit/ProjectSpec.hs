@@ -6,9 +6,9 @@ module Unit.ProjectSpec where
 
 import Data.GenValidity.Path ()
 import Gitlab.Lib
+import Gitlab.Project
 import Network.URI.Static
 import Path.Posix
-import Gitlab.Project
 import Test.Syd
 import Test.Syd.Aeson
 import Test.Syd.Validity

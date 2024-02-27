@@ -14,10 +14,6 @@ maintainer:     leo008180@googlemail.com
 copyright:      2023 Leonhard Riedißer
 license:        BSD3
 build-type:     Simple
-extra-source-files:
-    README.md
-    ChangeLog.md
-    .sydtest.yaml
 
 source-repository head
   type: git
@@ -40,21 +36,8 @@ library
       StrictData
   ghc-options: -fwrite-ide-info -hiedir=.hie -Wall -Wcompat -Widentities -Wincomplete-uni-patterns -Wincomplete-record-updates -Wredundant-constraints -fhide-source-paths -Wpartial-fields -Wmissing-deriving-strategies -Wunused-packages -Wmissing-export-lists -O2 -flate-specialise -fspecialise-aggressively -frefinement-level-hole-fits=3
   build-depends:
-      aeson
-    , autodocodec
-    , base >=4.7 && <5
-    , either
+      base >=4.7 && <5
     , gitlab-api-types
-    , network-uri
-    , path
-    , scientific
     , servant >=0.19
     , servant-server
-    , text
-    , time
-    , validity
-    , validity-network-uri
-    , validity-path
-    , validity-text
-    , validity-time
   default-language: GHC2021

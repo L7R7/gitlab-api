@@ -2,10 +2,10 @@
 
 module Api.GroupSpec (spec) where
 
-import Gitlab.API.API
 import Data.Either
 import Data.Either.Extra
 import Data.Foldable (for_)
+import Gitlab.API.API
 import Gitlab.API.Group
 import Gitlab.Group
 import Gitlab.Lib

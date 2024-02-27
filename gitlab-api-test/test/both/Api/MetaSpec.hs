@@ -1,8 +1,8 @@
 module Api.MetaSpec (spec) where
 
-import Gitlab.API.API
 import Data.Either
 import Data.Either.Extra
+import Gitlab.API.API
 import Gitlab.API.Meta
 import Gitlab.Meta
 import Servant.Client

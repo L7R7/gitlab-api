@@ -1,14 +1,9 @@
-module Gitlab.Hook where
+module Gitlab.Hook(Hook(..)) where
 
 import Autodocodec
-import Data.Aeson (FromJSON, ToJSON)
-import Data.Validity
+import Data.Aeson (FromJSON)
 import Data.Validity.Path ()
-import Gitlab.Job qualified
-import Gitlab.Lib (Id, Name, Ref, Url)
-import Path
-import Servant
-import Servant.API.Generic
+import Gitlab.Lib (Id, Url)
 
 data Hook = Hook
   { hookId :: Id Hook,
@@ -34,31 +29,31 @@ instance HasCodec Hook where
     object "Hook" $
       Hook
         <$> requiredField' "id"
-        .= hookId
+          .= hookId
         <*> requiredField' "url"
-        .= url
+          .= url
         <*> optionalFieldWithDefaultWith' "push_events" boolCodec False
-        .= pushEvents
+          .= pushEvents
         <*> requiredField' "tag_push_events"
-        .= tagPushEvents
+          .= tagPushEvents
         <*> requiredField' "merge_requests_events"
-        .= mergeRequestEvents
+          .= mergeRequestEvents
         <*> requiredField' "repository_update_events"
-        .= repositoryUpdateEvents
+          .= repositoryUpdateEvents
         <*> requiredField' "issues_events"
-        .= issuesEvents
+          .= issuesEvents
         <*> requiredField' "confidential_issues_events"
-        .= confidentialIssuesEvents
+          .= confidentialIssuesEvents
         <*> requiredField' "note_events"
-        .= noteEvents
+          .= noteEvents
         <*> (or <$> (optionalFieldOrNullWith' "confidential_note_events" boolCodec .= (pure . confidentialNoteEvents)))
         <*> requiredField' "pipeline_events"
-        .= pipelineEvents
+          .= pipelineEvents
         <*> requiredField' "wiki_page_events"
-        .= wikiPageEvents
+          .= wikiPageEvents
         <*> requiredField' "deployment_events"
-        .= deploymentEvents
+          .= deploymentEvents
         <*> requiredField' "job_events"
-        .= jobEvents
+          .= jobEvents
         <*> requiredField' "releases_events"
-        .= releasesEvents
+          .= releasesEvents

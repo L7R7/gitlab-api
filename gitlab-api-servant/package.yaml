@@ -7,11 +7,7 @@ maintainer: "leo008180@googlemail.com"
 copyright: "2023 Leonhard Riedißer"
 language: GHC2021
 
-extra-source-files:
-  - README.md
-  - ChangeLog.md
-  - .sydtest.yaml
-  - test/resources/**/*
+extra-source-files: []
 
 description: Please see the README on GitHub at <https://github.com/L7R7/gitlab-api#readme>
 
@@ -37,7 +33,6 @@ default-extensions:
   - DerivingStrategies
   - DerivingVia
   - OverloadedStrings
-  - StrictData
 
 library:
   source-dirs: src
@@ -48,25 +43,5 @@ library:
     - -frefinement-level-hole-fits=3
   dependencies:
     - gitlab-api-types
-    - aeson
-    - autodocodec
-    # - autodocodec-openapi3
-    - either
-    # - containers
-    # - http-api-data
-    # - http-types
-    - network-uri
-    # - openapi3
-    - path
-    - scientific
     - servant >= 0.19
     - servant-server
-    - text
-    - validity
-    - validity-network-uri
-    - validity-path
-    - validity-text
-    - validity-time
-    - time
-    # - uuid
-

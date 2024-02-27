@@ -2,15 +2,15 @@
 
 module Api.ProjectSpec (spec) where
 
-import Gitlab.API.API
-import Gitlab.API.Project
 import Data.Either
 import Data.Either.Extra
 import Data.Foldable (for_)
+import Gitlab.API.API
+import Gitlab.API.Project
 import Gitlab.Job qualified
 import Gitlab.Lib
-import Network.HTTP.Types
 import Gitlab.Project
+import Network.HTTP.Types
 import Servant.Client
 import Test.Syd
 import Test.Syd.Validity

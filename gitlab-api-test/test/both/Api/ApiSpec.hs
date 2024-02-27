@@ -1,9 +1,9 @@
 module Api.ApiSpec (spec) where
 
-import Gitlab.API.API
 import Api.ApiDocs.OpenApi ()
 import Data.OpenApi.Internal.Utils
 import Data.Proxy
+import Gitlab.API.API
 import Servant.OpenApi (HasOpenApi (..))
 import Servant.Server
 import Test.Syd

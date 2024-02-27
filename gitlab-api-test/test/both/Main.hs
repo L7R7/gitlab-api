@@ -1,40 +1,39 @@
+{-# LANGUAGE TupleSections #-}
+
 module Main (main) where
 
-import Gitlab.API.API
+import Api.Spec qualified
 import Data.Proxy
+import Gitlab.API.API
 import Network.HTTP.Client (newManager)
 import Network.HTTP.Client.TLS
 import Servant.Client
-import qualified Unit.Spec
-import qualified Api.Spec
 import System.Environment (lookupEnv)
 import Test.Syd
+import Unit.Spec qualified
 
 main :: IO ()
-main = sydTest $ do
-  beforeAll ((,) <$> clientEnvSetup <*> gitlabAPIClient) Api.Spec.spec
-  Unit.Spec.spec
+main = do
+  maybeApiSpecSetup <- apiSpecSetup
+  sydTest $ do
+    Unit.Spec.spec
+    case maybeApiSpecSetup of
+      Nothing -> pending "API Spec skipped because API Token and/or Base URL are missing"
+      Just apiSpecSetup' -> beforeAll apiSpecSetup' Api.Spec.spec
 
-privateTokenSetup :: IO String
-privateTokenSetup = do
-  maybeToken <- lookupEnv "GITLAB_API_TOKEN"
-  case maybeToken of
-    Nothing -> expectationFailure "Expecting the API token for the requests in the environment variable \"GITLAB_API_TOKEN\""
-    Just token -> pure token
-
-gitlabAPIClient :: IO (GitlabAPI (AsClientT ClientM))
-gitlabAPIClient = client (Proxy @API) . Just <$> privateTokenSetup
-
-baseUrlSetup :: IO String
-baseUrlSetup = do
+apiSpecSetup :: IO (Maybe (IO (ClientEnv, GitlabAPI (AsClientT ClientM))))
+apiSpecSetup = do
+  maybePrivateToken <- lookupEnv "GITLAB_API_TOKEN"
   maybeBaseUrl <- lookupEnv "CI_SERVER_HOST"
-  case maybeBaseUrl of
-    Nothing -> expectationFailure "Expecting the base URL for the requests in the environment variable \"CI_SERVER_HOST\""
-    Just baseUrl' -> pure baseUrl'
+  pure $ do
+    token <- maybePrivateToken
+    baseUrl <- maybeBaseUrl
+    pure $ do
+      let apiClient = client (Proxy @API) (Just token)
+      (,apiClient) <$> clientEnvSetup baseUrl
 
-clientEnvSetup :: IO ClientEnv
-clientEnvSetup =
-  baseUrlSetup >>= \baseUrlString -> do
-    manager' <- newManager tlsManagerSettings
-    baseUrl' <- parseBaseUrl baseUrlString
-    pure $ mkClientEnv manager' baseUrl'
+clientEnvSetup :: String -> IO ClientEnv
+clientEnvSetup baseUrlString = do
+  manager' <- newManager tlsManagerSettings
+  baseUrl' <- parseBaseUrl baseUrlString
+  pure $ mkClientEnv manager' baseUrl'

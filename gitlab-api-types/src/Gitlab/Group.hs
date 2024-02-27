@@ -1,16 +1,12 @@
-{-# LANGUAGE DataKinds #-}
-
 module Gitlab.Group (Group (..)) where
 
 import Autodocodec
 import Data.Aeson (FromJSON, ToJSON)
 import Data.Validity
 import Data.Validity.Path ()
+import GHC.Generics
 import Gitlab.Lib (Id, Name, Url)
 import Path
-import Gitlab.Project qualified
-import Servant
-import Servant.API.Generic
 
 data Group = Group
   { groupId :: Id Group,

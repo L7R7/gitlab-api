@@ -2,14 +2,10 @@
 
 module Gitlab.API.Meta (API, MetaAPI (..)) where
 
-import Autodocodec
-import Data.Aeson (FromJSON, ToJSON)
-import Data.Text
-import Data.Validity
-import Data.Validity.Text ()
 import GHC.Generics
-import Servant
 import Gitlab.Meta qualified
+import Servant
+
 type API = NamedRoutes MetaAPI
 
 data MetaAPI mode = MetaAPI

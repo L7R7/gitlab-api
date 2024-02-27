@@ -1,6 +1,4 @@
-{-# LANGUAGE DataKinds #-}
-
-module Gitlab.Meta ( Version (..), Metadata (..)) where
+module Gitlab.Meta (Version (..), Metadata (..)) where
 
 import Autodocodec
 import Data.Aeson (FromJSON, ToJSON)
@@ -8,7 +6,6 @@ import Data.Text
 import Data.Validity
 import Data.Validity.Text ()
 import GHC.Generics
-import Servant
 
 data Version = Version
   { vVersion :: Text,

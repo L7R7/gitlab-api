@@ -1,15 +1,11 @@
-{-# LANGUAGE DataKinds #-}
-
 module Gitlab.Project (Project (..)) where
 
 import Autodocodec
 import Data.Aeson (FromJSON, ToJSON)
 import Data.Validity
 import Data.Validity.Path ()
-import Gitlab.Job qualified
 import Gitlab.Lib (Id, Name, Ref, Url)
 import Path
-import Servant
 import Servant.API.Generic
 
 data Project = Project
