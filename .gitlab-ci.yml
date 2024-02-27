@@ -18,7 +18,7 @@ build:
     - stack test --system-ghc
   artifacts:
     paths:
-      - test/resources/
+      - gitlab-api-test/test/resources/
 
 pages:
   stage: deploy
