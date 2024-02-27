@@ -9,5 +9,5 @@ target/
 *~
 .hspec-failures
 tags
-practice-journal-exe
 lcov.info
+sydtest-profile.html
