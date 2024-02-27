@@ -1,0 +1,9 @@
+{
+    "_links": {
+        "web_path": "https://my.gitlab.com/my-package"
+    },
+    "id": 12,
+    "name": "my-package",
+    "package_type": "maven",
+    "version": "1.2.3"
+}

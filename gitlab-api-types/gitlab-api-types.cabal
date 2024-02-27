@@ -26,6 +26,7 @@ library
       Gitlab.Job
       Gitlab.Lib
       Gitlab.Meta
+      Gitlab.Package
       Gitlab.Project
       Gitlab.Runner
   other-modules:

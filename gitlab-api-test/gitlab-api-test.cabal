@@ -22,6 +22,7 @@ extra-source-files:
     test/resources/job/with-failure-reason.json
     test/resources/meta/metadata.json
     test/resources/meta/version.json
+    test/resources/package/package.json
     test/resources/project/project-no-default-branch.json
     test/resources/project/project.json
     test/resources/runner/runner.json
@@ -43,6 +44,7 @@ test-suite test
       Unit.GroupSpec
       Unit.JobSpec
       Unit.MetaSpec
+      Unit.PackageSpec
       Unit.ProjectSpec
       Unit.RunnerSpec
       Unit.Spec
