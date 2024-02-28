@@ -1,6 +1,6 @@
 {
     "_links": {
-        "web_path": "https://my.gitlab.com/my-package"
+        "web_path": "/my-group/my-package"
     },
     "id": 12,
     "name": "my-package",

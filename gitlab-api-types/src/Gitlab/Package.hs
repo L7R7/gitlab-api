@@ -30,10 +30,8 @@ instance HasCodec Package where
         <*> requiredField' "package_type" .= packageType
         <*> requiredField' "_links" .= packageLinks
 
-data WebPath
-
 newtype PackageLinks = PackageLinks
-  { packageLinksWebPath :: Url WebPath
+  { packageLinksWebPath :: Text -- todo: is this a Path Abs File?
   }
   deriving stock (Eq, Show, Generic)
 
