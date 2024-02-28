@@ -11,3 +11,4 @@ target/
 tags
 lcov.info
 sydtest-profile.html
+gitlab-api-test/sydtest-profile.html
