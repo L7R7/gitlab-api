@@ -17,3 +17,5 @@ instance GenValid (Url a) where
   shrinkValid _ = []
 
 instance GenValid Duration
+
+instance GenValid EnabledDisabled

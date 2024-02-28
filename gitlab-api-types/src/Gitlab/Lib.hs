@@ -1,9 +1,11 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module Gitlab.Lib (Id (..), Url (..), Ref (..), Name (..), Duration (..)) where
+module Gitlab.Lib (Id (..), Url (..), Ref (..), Name (..), Duration (..), EnabledDisabled (..)) where
 
 import Autodocodec
+import Data.Aeson (FromJSON)
 import Data.Either.Combinators
+import Data.List.NonEmpty
 import Data.Scientific
 import Data.Text
 import Data.Validity
@@ -63,3 +65,12 @@ instance Validity Duration
 
 instance HasCodec Duration where
   codec = dimapCodec Duration getDuration scientificCodec
+
+data EnabledDisabled = Enabled | Disabled
+  deriving stock (Eq, Show, Generic)
+  deriving (FromJSON) via (Autodocodec EnabledDisabled)
+
+instance HasCodec EnabledDisabled where
+  codec = stringConstCodec $ (Enabled, "enabled") :| [(Disabled, "disabled")]
+
+instance Validity EnabledDisabled

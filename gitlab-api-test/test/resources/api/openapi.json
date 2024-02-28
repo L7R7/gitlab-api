@@ -133,6 +133,13 @@
             },
             "Project": {
                 "properties": {
+                    "auto_cancel_pending_pipelines": {
+                        "enum": [
+                            "enabled",
+                            "disabled"
+                        ],
+                        "type": "string"
+                    },
                     "default_branch": {
                         "description": "default branch of the project. Will be missing if the project is empty",
                         "type": "string"
@@ -142,12 +149,41 @@
                         "minimum": -9223372036854775808,
                         "type": "number"
                     },
+                    "merge_method": {
+                        "enum": [
+                            "merge",
+                            "rebase_merge",
+                            "ff"
+                        ],
+                        "type": "string"
+                    },
+                    "merge_requests_enabled": {
+                        "type": "boolean"
+                    },
                     "name": {
                         "type": "string"
+                    },
+                    "only_allow_merge_if_all_discussions_are_resolved": {
+                        "description": "Project-wide default value for this option in MRs. Is `null` when the user has not set it manually.",
+                        "nullable": true,
+                        "type": "boolean"
+                    },
+                    "only_allow_merge_if_pipeline_succeeds": {
+                        "description": "Project-wide default value for this option in MRs. Is `null` when the user has not set it manually.",
+                        "nullable": true,
+                        "type": "boolean"
                     },
                     "path_with_namespace": {
                         "additionalProperties": true,
                         "description": "Path"
+                    },
+                    "remove_source_branch_after_merge": {
+                        "description": "Project-wide default value for this option in MRs. Is `null` when the user has not set it manually.",
+                        "nullable": true,
+                        "type": "boolean"
+                    },
+                    "ssh_url_to_repo": {
+                        "type": "string"
                     },
                     "web_url": {
                         "type": "string"
@@ -157,7 +193,13 @@
                     "id",
                     "name",
                     "web_url",
-                    "path_with_namespace"
+                    "merge_requests_enabled",
+                    "merge_method",
+                    "path_with_namespace",
+                    "remove_source_branch_after_merge",
+                    "only_allow_merge_if_pipeline_succeeds",
+                    "only_allow_merge_if_all_discussions_are_resolved",
+                    "ssh_url_to_repo"
                 ],
                 "type": "object"
             },

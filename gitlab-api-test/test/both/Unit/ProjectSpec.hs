@@ -22,12 +22,41 @@ spec = do
   jsonSpec @Project
   describe "golden tests" $ do
     it "full project" $ do
-      let project = Project (Id 123) (Name "my project") (Url $$(staticURI "https://my.gitlab.com/pipelines/411")) (Just (Ref "main")) [reldir|my-team/my-project|]
+      let project =
+            Project
+              (Id 123)
+              (Name "my project")
+              (Url $$(staticURI "https://my.gitlab.com/pipelines/411"))
+              (Just (Ref "main"))
+              True
+              FastForward
+              [reldir|my-team/my-project|]
+              (Just True)
+              (Just False)
+              (Just True)
+              (Just Enabled)
+              "git@my.gitlab.com:group/subgroup/my-project.git"
       pureGoldenJSONValueFile "test/resources/project/project.json" project
-    it "project without default branch" $ do
-      let project = Project (Id 123) (Name "my project") (Url $$(staticURI "https://my.gitlab.com/pipelines/411")) Nothing [reldir|my-team/my-project|]
-      pureGoldenJSONValueFile "test/resources/project/project-no-default-branch.json" project
+
+    it "project without optional fields" $ do
+      let project =
+            Project
+              (Id 123)
+              (Name "my project")
+              (Url $$(staticURI "https://my.gitlab.com/pipelines/411"))
+              Nothing
+              True
+              Merge
+              [reldir|my-team/my-project|]
+              Nothing
+              Nothing
+              Nothing
+              Nothing
+              "git@my.gitlab.com:group/subgroup/my-project.git"
+      pureGoldenJSONValueFile "test/resources/project/project-no-optional-fields.json" project
 
 instance GenValid Project
+
+instance GenValid MergeMethod
 
 deriving newtype instance GenValid Ref

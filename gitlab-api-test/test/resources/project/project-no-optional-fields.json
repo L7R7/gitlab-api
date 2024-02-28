@@ -1,0 +1,12 @@
+{
+    "id": 123,
+    "merge_method": "merge",
+    "merge_requests_enabled": true,
+    "name": "my project",
+    "only_allow_merge_if_pipeline_succeeds": null,
+    "only_allow_merge_if_all_discussions_are_resolved": null,
+    "path_with_namespace": "my-team/my-project/",
+    "remove_source_branch_after_merge": null,
+    "ssh_url_to_repo": "git@my.gitlab.com:group/subgroup/my-project.git",
+    "web_url": "https://my.gitlab.com/pipelines/411"
+}
