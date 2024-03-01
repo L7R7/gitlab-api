@@ -19,6 +19,8 @@
       │     ├─ jobs/
       │     │  └─ <job ID::Id * Job>/
       │     │     └─•
+      │     ├─ merge_requests/
+      │     │  └─•
       │     └─•
       └─ version/
          └─•

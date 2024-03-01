@@ -116,6 +116,51 @@
                 ],
                 "type": "object"
             },
+            "MergeRequest": {
+                "properties": {
+                    "created_at": {
+                        "additionalProperties": true,
+                        "description": "LocalTime"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "has_conflicts": {
+                        "type": "boolean"
+                    },
+                    "iid": {
+                        "description": "NOTE: IID OF THE MR, NOT ID",
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "type": "number"
+                    },
+                    "project_id": {
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "type": "number"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "web_url": {
+                        "type": "string"
+                    },
+                    "work_in_progress": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "iid",
+                    "project_id",
+                    "title",
+                    "description",
+                    "work_in_progress",
+                    "has_conflicts",
+                    "created_at",
+                    "web_url"
+                ],
+                "type": "object"
+            },
             "Metadata": {
                 "properties": {
                     "revision": {
@@ -512,6 +557,61 @@
                     },
                     "404": {
                         "description": "`project ID` or `job ID` not found"
+                    }
+                }
+            }
+        },
+        "/api/v4/projects/{project ID}/merge_requests": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "project ID",
+                        "required": true,
+                        "schema": {}
+                    },
+                    {
+                        "in": "query",
+                        "name": "state",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "author_id",
+                        "required": false,
+                        "schema": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/MergeRequest"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `author_id` or `state` or `PRIVATE-TOKEN`"
+                    },
+                    "404": {
+                        "description": "`project ID` not found"
                     }
                 }
             }

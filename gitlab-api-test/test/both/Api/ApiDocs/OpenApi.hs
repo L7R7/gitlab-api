@@ -8,6 +8,7 @@ import Data.OpenApi (ToParamSchema (..), ToSchema (..))
 import Gitlab.Group qualified
 import Gitlab.Job qualified
 import Gitlab.Lib
+import Gitlab.MergeRequest qualified
 import Gitlab.Meta qualified
 import Gitlab.Project qualified
 
@@ -23,3 +24,5 @@ deriving via (Autodocodec Gitlab.Project.Project) instance (ToSchema Gitlab.Proj
 deriving via (Autodocodec Gitlab.Job.Job) instance (ToSchema Gitlab.Job.Job)
 
 deriving via (Autodocodec Gitlab.Group.Group) instance (ToSchema Gitlab.Group.Group)
+
+deriving via (Autodocodec Gitlab.MergeRequest.MergeRequest) instance (ToSchema Gitlab.MergeRequest.MergeRequest)

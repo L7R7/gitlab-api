@@ -25,6 +25,7 @@ library
       Gitlab.Hook
       Gitlab.Job
       Gitlab.Lib
+      Gitlab.MergeRequest
       Gitlab.Meta
       Gitlab.Package
       Gitlab.Project

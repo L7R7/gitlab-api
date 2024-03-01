@@ -20,6 +20,7 @@ extra-source-files:
     test/resources/group/group.json
     test/resources/job/no-failure-reason.json
     test/resources/job/with-failure-reason.json
+    test/resources/merge-request/merge-request.json
     test/resources/meta/metadata.json
     test/resources/meta/version.json
     test/resources/package/package.json
@@ -43,6 +44,7 @@ test-suite test
       Api.Spec
       Unit.GroupSpec
       Unit.JobSpec
+      Unit.MergeRequestSpec
       Unit.MetaSpec
       Unit.PackageSpec
       Unit.ProjectSpec

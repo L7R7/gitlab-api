@@ -4,6 +4,7 @@ module Utils where
 
 import Data.GenValidity.Scientific ()
 import Data.GenValidity.Text ()
+import Data.Time
 import Gitlab.Lib
 import Network.URI
 import Test.Syd.Validity
@@ -19,3 +20,6 @@ instance GenValid (Url a) where
 instance GenValid Duration
 
 instance GenValid EnabledDisabled
+
+parseTime :: String -> UTCTime
+parseTime = parseTimeOrError True defaultTimeLocale "%Y-%-m-%-d"
