@@ -15,10 +15,11 @@ build:
       - .stack-root
       - target
   script:
-    - stack test --system-ghc
+    - stack test --system-ghc --test-arguments="--profile"
   artifacts:
     paths:
       - gitlab-api-test/test/resources/
+      - gitlab-api-test/sydtest-profile.html
 
 pages:
   stage: deploy
