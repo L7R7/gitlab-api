@@ -7,7 +7,7 @@ import Data.Either.Extra
 import Data.Foldable (for_)
 import Gitlab.API.API
 import Gitlab.API.Project
-import Gitlab.Job qualified
+import Gitlab.Job
 import Gitlab.Lib
 import Gitlab.Project
 import Network.HTTP.Types
@@ -30,12 +30,12 @@ spec = beforeAllWith (pure . fmap project) $ describe "project" $ do
       (projectId <$> res) `shouldSatisfy` elem pId
   describe "single job" $
     -- todo: Id 4117230. a skipped job has no started_at
-    for_ [Id @Gitlab.Job.Job 4028634, Id 4117227, Id 4114940] $ \jId -> itWithOuter (show jId) $ \(clientEnv, ProjectAPI _ singleProjectApi) -> do
+    for_ [Id @Job 4028634, Id 4117227, Id 4114940] $ \jId -> itWithOuter (show jId) $ \(clientEnv, ProjectAPI _ singleProjectApi) -> do
       let pId = Id @Project 720
       let (SingleProjectAPI _ (JobAPI singleJob) _) = singleProjectApi pId
       res <- runClientM (singleJob jId) clientEnv
       shouldBeValid res
-      (Gitlab.Job.jobId <$> res) `shouldSatisfy` all (jId ==)
+      (jobId <$> res) `shouldSatisfy` all (jId ==)
 
   describe "merge requests" $ do
     describe "list all" $ for_ [Id @Project 720, Id 795, Id 3015, Id 2679] $ \pId -> itWithOuter (show pId) $ \(clientEnv, ProjectAPI _ singleProjectApi) -> do
