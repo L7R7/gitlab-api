@@ -17,6 +17,7 @@ build-type:     Simple
 extra-source-files:
     test/resources/api/api-structure.txt
     test/resources/api/openapi.json
+    test/resources/branch/branch.json
     test/resources/group/group.json
     test/resources/job/no-failure-reason.json
     test/resources/job/with-failure-reason.json
@@ -42,6 +43,7 @@ test-suite test
       Api.MetaSpec
       Api.ProjectSpec
       Api.Spec
+      Unit.BranchSpec
       Unit.GroupSpec
       Unit.JobSpec
       Unit.MergeRequestSpec

@@ -1,6 +1,49 @@
 {
     "components": {
         "schemas": {
+            "Branch": {
+                "properties": {
+                    "commit": {
+                        "$ref": "#/components/schemas/Commit"
+                    },
+                    "default": {
+                        "type": "boolean"
+                    },
+                    "merged": {
+                        "type": "boolean"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "protected": {
+                        "type": "boolean"
+                    },
+                    "web_url": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "merged",
+                    "protected",
+                    "default",
+                    "web_url",
+                    "commit"
+                ],
+                "type": "object"
+            },
+            "Commit": {
+                "properties": {
+                    "committed_date": {
+                        "additionalProperties": true,
+                        "description": "LocalTime"
+                    }
+                },
+                "required": [
+                    "committed_date"
+                ],
+                "type": "object"
+            },
             "Group": {
                 "properties": {
                     "full_path": {
@@ -609,6 +652,47 @@
                     },
                     "400": {
                         "description": "Invalid `author_id` or `state` or `PRIVATE-TOKEN`"
+                    },
+                    "404": {
+                        "description": "`project ID` not found"
+                    }
+                }
+            }
+        },
+        "/api/v4/projects/{project ID}/repository/branches": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "project ID",
+                        "required": true,
+                        "schema": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Branch"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `PRIVATE-TOKEN`"
                     },
                     "404": {
                         "description": "`project ID` not found"

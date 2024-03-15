@@ -24,7 +24,7 @@ spec = beforeAllWith (pure . fmap project) $ describe "project" $ do
     shouldBeValid $ eitherToMaybe res
   describe "single project" $
     for_ [Id @Project 720, Id 795, Id 3015, Id 2679] $ \pId -> itWithOuter (show pId) $ \(clientEnv, ProjectAPI _ singleProjectApi) -> do
-      let (SingleProjectAPI singleProject _ _) = singleProjectApi pId
+      let (SingleProjectAPI singleProject _ _ _) = singleProjectApi pId
       res <- runClientM singleProject clientEnv
       shouldBeValid res
       (projectId <$> res) `shouldSatisfy` elem pId
@@ -32,14 +32,14 @@ spec = beforeAllWith (pure . fmap project) $ describe "project" $ do
     -- todo: Id 4117230. a skipped job has no started_at
     for_ [Id @Job 4028634, Id 4117227, Id 4114940] $ \jId -> itWithOuter (show jId) $ \(clientEnv, ProjectAPI _ singleProjectApi) -> do
       let pId = Id @Project 720
-      let (SingleProjectAPI _ (JobAPI singleJob) _) = singleProjectApi pId
+      let (SingleProjectAPI _ (JobAPI singleJob) _ _) = singleProjectApi pId
       res <- runClientM (singleJob jId) clientEnv
       shouldBeValid res
       (jobId <$> res) `shouldSatisfy` all (jId ==)
 
   describe "merge requests" $ do
     describe "list all" $ for_ [Id @Project 720, Id 795, Id 3015, Id 2679] $ \pId -> itWithOuter (show pId) $ \(clientEnv, ProjectAPI _ singleProjectApi) -> do
-      let (SingleProjectAPI _ _ (MergeRequestAPI mergeRequests)) = singleProjectApi pId
+      let (SingleProjectAPI _ _ (MergeRequestAPI mergeRequests) _) = singleProjectApi pId
       res <- runClientM (mergeRequests Nothing Nothing) clientEnv
       res `shouldSatisfy` isRight
       shouldBeValid $ eitherToMaybe res
@@ -48,10 +48,18 @@ spec = beforeAllWith (pure . fmap project) $ describe "project" $ do
       for_ [Id 66, Id 144] $ \authorId ->
         for_ [Id @Project 720, Id 795, Id 3015, Id 2679] $ \pId -> itWithOuter ("Author(" <> show authorId <> ") - " <> show pId) $
           \(clientEnv, ProjectAPI _ singleProjectApi) -> do
-            let (SingleProjectAPI _ _ (MergeRequestAPI mergeRequests)) = singleProjectApi pId
+            let (SingleProjectAPI _ _ (MergeRequestAPI mergeRequests) _) = singleProjectApi pId
             res <- runClientM (mergeRequests Nothing Nothing) clientEnv
             res `shouldSatisfy` isRight
             shouldBeValid $ eitherToMaybe res
+
+  describe "branches" $
+    describe "list all" $
+      for_ [Id @Project 720, Id 795, Id 3015, Id 2679] $ \pId -> itWithOuter (show pId) $ \(clientEnv, ProjectAPI _ singleProjectApi) -> do
+        let (SingleProjectAPI _ _ _ (RepositoryAPI getBranches)) = singleProjectApi pId
+        res <- runClientM getBranches clientEnv
+        res `shouldSatisfy` isRight
+        shouldBeValid $ eitherToMaybe res
 
 instance Validity ClientError where
   validate (FailureResponse _ response) | responseStatusCode response == status404 = valid

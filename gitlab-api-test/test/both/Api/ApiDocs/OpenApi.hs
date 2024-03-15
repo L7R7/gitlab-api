@@ -5,6 +5,7 @@ module Api.ApiDocs.OpenApi () where
 import Autodocodec
 import Autodocodec.OpenAPI ()
 import Data.OpenApi (ToParamSchema (..), ToSchema (..))
+import Gitlab.Branch
 import Gitlab.Group
 import Gitlab.Job
 import Gitlab.Lib
@@ -26,3 +27,5 @@ deriving via (Autodocodec Job) instance (ToSchema Job)
 deriving via (Autodocodec Group) instance (ToSchema Group)
 
 deriving via (Autodocodec MergeRequest) instance (ToSchema MergeRequest)
+
+deriving via (Autodocodec Branch) instance (ToSchema Branch)

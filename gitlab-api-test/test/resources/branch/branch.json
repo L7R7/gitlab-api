@@ -1,0 +1,10 @@
+{
+    "commit": {
+        "committed_date": "2024-02-29T00:00:00Z"
+    },
+    "default": true,
+    "merged": true,
+    "name": "my-branch",
+    "protected": false,
+    "web_url": "https://my.gitlab.com/my-project/my-branch"
+}

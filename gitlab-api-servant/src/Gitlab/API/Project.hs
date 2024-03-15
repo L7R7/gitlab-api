@@ -1,7 +1,16 @@
 {-# LANGUAGE DataKinds #-}
 
-module Gitlab.API.Project (API, ProjectAPI (..), SingleProjectAPI (..), JobAPI (..), MergeRequestAPI (..)) where
+module Gitlab.API.Project
+  ( API,
+    ProjectAPI (..),
+    SingleProjectAPI (..),
+    JobAPI (..),
+    MergeRequestAPI (..),
+    RepositoryAPI (..),
+  )
+where
 
+import Gitlab.Branch qualified
 import Gitlab.Job qualified
 import Gitlab.Lib (Id)
 import Gitlab.MergeRequest qualified
@@ -20,7 +29,8 @@ data ProjectAPI mode = ProjectAPI
 data SingleProjectAPI mode = SingleProjectAPI
   { getProject :: mode :- Get '[JSON] Gitlab.Project.Project,
     jobs :: mode :- "jobs" :> NamedRoutes JobAPI,
-    mergeRequests :: mode :- "merge_requests" :> NamedRoutes MergeRequestAPI
+    mergeRequests :: mode :- "merge_requests" :> NamedRoutes MergeRequestAPI,
+    repository :: mode :- "repository" :> NamedRoutes RepositoryAPI
   }
   deriving stock (Generic)
 
@@ -38,5 +48,10 @@ newtype MergeRequestAPI mode = MergeRequestAPI
         :- QueryParam "state" String -- todo: sum type for state filter
           :> QueryParam "author_id" (Id Author)
           :> Get '[JSON] [Gitlab.MergeRequest.MergeRequest]
+  }
+  deriving stock (Generic)
+
+newtype RepositoryAPI mode = RepositoryAPI
+  { getBranches :: mode :- "branches" :> Get '[JSON] [Gitlab.Branch.Branch]
   }
   deriving stock (Generic)
