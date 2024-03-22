@@ -45,11 +45,10 @@ library
     , autodocodec
     , base >=4.7 && <5
     , either
+    , http-api-data
     , network-uri
     , path
     , scientific
-    , servant >=0.19
-    , servant-server
     , text
     , time
     , validity

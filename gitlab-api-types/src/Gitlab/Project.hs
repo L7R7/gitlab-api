@@ -7,9 +7,9 @@ import Data.Text (Text)
 import Data.Validity
 import Data.Validity.Path ()
 import Data.Validity.Text ()
+import GHC.Generics
 import Gitlab.Lib (EnabledDisabled, Id, Name, Ref, Url)
 import Path
-import Servant.API.Generic
 
 data Project = Project
   { projectId :: Id Project,

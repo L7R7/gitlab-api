@@ -45,11 +45,10 @@ library:
     - aeson
     - autodocodec
     - either
+    - http-api-data
     - network-uri
     - path
     - scientific
-    - servant >= 0.19
-    - servant-server
     - text
     - validity
     - validity-network-uri

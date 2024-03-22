@@ -13,7 +13,7 @@ import Data.Validity.URI ()
 import GHC.Generics
 import Network.URI
 import Path
-import Servant (FromHttpApiData, ToHttpApiData)
+import Web.HttpApiData (FromHttpApiData, ToHttpApiData)
 
 newtype Id a = Id {getId :: Int}
   deriving newtype (Eq, Show, FromHttpApiData, ToHttpApiData)
