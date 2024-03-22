@@ -166,6 +166,7 @@
                         "description": "LocalTime"
                     },
                     "description": {
+                        "nullable": true,
                         "type": "string"
                     },
                     "has_conflicts": {
@@ -196,7 +197,6 @@
                     "iid",
                     "project_id",
                     "title",
-                    "description",
                     "work_in_progress",
                     "has_conflicts",
                     "created_at",

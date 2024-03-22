@@ -14,7 +14,7 @@ data MergeRequest = MergeRequest
   { mergeRequestIid :: Id MergeRequest,
     mergeRequestProjectId :: Id Project,
     mergeRequestTitle :: Text,
-    mergeRequestDescription :: Text,
+    mergeRequestDescription :: Maybe Text,
     mergeRequestWip :: Bool,
     mergeRequestConflicts :: Bool,
     mergeRequestCreatedAt :: UTCTime,
@@ -35,7 +35,7 @@ instance HasCodec MergeRequest where
           .= mergeRequestProjectId
         <*> requiredField' "title"
           .= mergeRequestTitle
-        <*> requiredField' "description"
+        <*> optionalFieldOrNull' "description"
           .= mergeRequestDescription
         <*> requiredField' "work_in_progress"
           .= mergeRequestWip

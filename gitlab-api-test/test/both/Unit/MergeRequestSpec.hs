@@ -25,11 +25,23 @@ spec = do
               (Id 77)
               (Id 123)
               "MR Title"
-              "MR Description"
+              (Just "MR Description")
               True
               False
               (parseTime "2024-02-29")
               (Url $$(staticURI "https://my.gitlab.com/my-merge-request"))
-      pureGoldenJSONValueFile "test/resources/merge-request/merge-request.json" mergeRequest
+      pureGoldenJSONValueFile "test/resources/merge-request/full.json" mergeRequest
+    it "no description" $ do
+      let mergeRequest =
+            MergeRequest
+              (Id 77)
+              (Id 123)
+              "MR Title"
+              Nothing
+              True
+              False
+              (parseTime "2024-02-29")
+              (Url $$(staticURI "https://my.gitlab.com/my-merge-request"))
+      pureGoldenJSONValueFile "test/resources/merge-request/no-description.json" mergeRequest
 
 instance GenValid MergeRequest
