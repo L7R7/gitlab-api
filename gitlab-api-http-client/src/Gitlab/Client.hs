@@ -3,6 +3,7 @@ module Gitlab.Client
     ApiToken (..),
     UpdateError (..),
     fetchData,
+    fetchData',
     fetchDataPaginated,
     headRequest,
   )
