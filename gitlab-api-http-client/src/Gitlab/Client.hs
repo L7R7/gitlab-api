@@ -13,6 +13,7 @@ import Burrito
 import Control.Exception.Base (SomeException, try)
 import Control.Lens (Lens', Prism', Traversal', filtered, lens, prism', set, _1, _2)
 import Control.Monad (join)
+import Control.Monad.IO.Class (MonadIO (liftIO))
 import Data.Aeson hiding (Value)
 import Data.Bifunctor (bimap)
 import Data.ByteString (ByteString)
@@ -39,23 +40,23 @@ data UpdateError
   | ParseUrlError Text
   deriving stock (Show)
 
-fetchData :: (FromJSON a) => BaseUrl -> ApiToken -> Template -> [(String, Value)] -> IO (Either UpdateError a)
+fetchData :: (FromJSON a, MonadIO m) => BaseUrl -> ApiToken -> Template -> [(String, Value)] -> m (Either UpdateError a)
 fetchData baseUrl apiToken = fetchData' baseUrl apiToken id
 
 type RequestTransformer = Request -> Request
 
-fetchData' :: (FromJSON a) => BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> IO (Either UpdateError a)
+fetchData' :: (FromJSON a, MonadIO m) => BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> m (Either UpdateError a)
 fetchData' = doReq (fmap (mapLeft ConversionError . getResponseBody) . httpJSONEither)
 
-fetchDataPaginated :: (FromJSON a) => ApiToken -> BaseUrl -> Template -> [(String, Value)] -> IO (Either UpdateError [a])
+fetchDataPaginated :: (FromJSON a, MonadIO m) => ApiToken -> BaseUrl -> Template -> [(String, Value)] -> m (Either UpdateError [a])
 fetchDataPaginated apiToken baseUrl template vars =
   case createRequest baseUrl apiToken id template vars of
     Left invalidUrl -> pure $ Left invalidUrl
     Right request -> fetchDataPaginated' apiToken template request []
 
-fetchDataPaginated' :: (FromJSON a) => ApiToken -> Template -> Request -> [a] -> IO (Either UpdateError [a])
+fetchDataPaginated' :: (FromJSON a, MonadIO m) => ApiToken -> Template -> Request -> [a] -> m (Either UpdateError [a])
 fetchDataPaginated' apiToken template request acc = do
-  result <- try $ do
+  result <- liftIO $ try $ do
     response <- httpJSONEither (setTimeout $ addToken apiToken request)
     let next = parseNextRequest response
     case mapLeft ConversionError $ getResponseBody response of
@@ -63,14 +64,14 @@ fetchDataPaginated' apiToken template request acc = do
       Right as -> maybe (pure $ Right (as <> acc)) (\req -> fetchDataPaginated' apiToken template req (as <> acc)) next
   pure $ mapLeft removeApiTokenFromUpdateError $ join $ mapLeft HttpError result
 
-headRequest :: BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> IO (Either UpdateError Status)
+headRequest :: (MonadIO m) => BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> m (Either UpdateError Status)
 headRequest baseUrl apiToken reqTransformer = doReq (fmap (Right . getResponseStatus) . httpNoBody) baseUrl apiToken (reqTransformer . setRequestMethod "HEAD")
 
-doReq :: (Request -> IO (Either UpdateError a)) -> BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> IO (Either UpdateError a)
+doReq :: (MonadIO m) => (Request -> IO (Either UpdateError a)) -> BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> m (Either UpdateError a)
 doReq f baseUrl apiToken reqTransformer template vars = case createRequest baseUrl apiToken reqTransformer template vars of
   Left invalidUrl -> pure $ Left invalidUrl
   Right request -> do
-    result <- try (f request)
+    result <- liftIO $ try (f request)
     pure $ mapLeft removeApiTokenFromUpdateError $ join $ mapLeft HttpError result
 
 createRequest :: BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> Either UpdateError Request
