@@ -26,7 +26,7 @@ import Network.HTTP.Client.Conduit (HttpExceptionContent, requestFromURI, reques
 import Network.HTTP.Link.Parser (parseLinkHeaderBS)
 import Network.HTTP.Link.Types (Link (..), LinkParam (Rel), href)
 import Network.HTTP.Simple
-import Network.HTTP.Types (Status, statusIsSuccessful)
+import Network.HTTP.Types (Status, statusCode, statusIsSuccessful)
 import Network.HTTP.Types.Header (HeaderName, hAccept)
 import Network.URI (URI)
 
@@ -34,9 +34,11 @@ newtype BaseUrl = BaseUrl URI deriving newtype (Show)
 
 newtype ApiToken = ApiToken Text deriving newtype (FromJSON, Show)
 
+type StatusCode = Int
+
 data UpdateError
   = HttpError HttpException
-  | ResponseWasNotSuccessful Status L.ByteString
+  | ResponseWasNotSuccessful StatusCode L.ByteString
   | ExceptionError SomeException
   | ConversionError JSONException
   | ConversionError' String
@@ -55,7 +57,7 @@ fetchData' baseUrl apiToken reqTransformer = doReq (fmap f . httpLBS) baseUrl ap
     f res =
       if statusIsSuccessful (getResponseStatus res)
         then mapLeft ConversionError' (eitherDecode (getResponseBody res))
-        else Left $ ResponseWasNotSuccessful (getResponseStatus res) (getResponseBody res)
+        else Left $ ResponseWasNotSuccessful (statusCode $ getResponseStatus res) (getResponseBody res)
 
 fetchDataPaginated :: (FromJSON a, MonadIO m) => ApiToken -> BaseUrl -> Template -> [(String, Value)] -> m (Either UpdateError [a])
 fetchDataPaginated apiToken baseUrl template vars =
