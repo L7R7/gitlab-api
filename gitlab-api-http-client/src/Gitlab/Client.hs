@@ -25,7 +25,7 @@ import Network.HTTP.Client.Conduit (HttpExceptionContent, requestFromURI, reques
 import Network.HTTP.Link.Parser (parseLinkHeaderBS)
 import Network.HTTP.Link.Types (Link (..), LinkParam (Rel), href)
 import Network.HTTP.Simple
-import Network.HTTP.Types (Status)
+import Network.HTTP.Types (Status, statusIsSuccessful)
 import Network.HTTP.Types.Header (HeaderName)
 import Network.URI (URI)
 
@@ -35,6 +35,7 @@ newtype ApiToken = ApiToken Text deriving newtype (FromJSON, Show)
 
 data UpdateError
   = HttpError HttpException
+  | ResponseWasNotSuccessful Status -- todo: better error reporting. include the response body?
   | ExceptionError SomeException
   | ConversionError JSONException
   | ParseUrlError Text
@@ -46,7 +47,13 @@ fetchData baseUrl apiToken = fetchData' baseUrl apiToken id
 type RequestTransformer = Request -> Request
 
 fetchData' :: (FromJSON a, MonadIO m) => BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> m (Either UpdateError a)
-fetchData' = doReq (fmap (mapLeft ConversionError . getResponseBody) . httpJSONEither)
+fetchData' = doReq (fmap f . httpJSONEither)
+  where
+    f :: Response (Either JSONException a) -> Either UpdateError a
+    f response =
+      if statusIsSuccessful (getResponseStatus response)
+        then mapLeft ConversionError (getResponseBody response)
+        else Left $ ResponseWasNotSuccessful (getResponseStatus response)
 
 fetchDataPaginated :: (FromJSON a, MonadIO m) => ApiToken -> BaseUrl -> Template -> [(String, Value)] -> m (Either UpdateError [a])
 fetchDataPaginated apiToken baseUrl template vars =
@@ -99,6 +106,7 @@ isNextLink _ = False
 
 removeApiTokenFromUpdateError :: UpdateError -> UpdateError
 removeApiTokenFromUpdateError (HttpError httpException) = HttpError (removeApiTokenFromHttpException httpException)
+removeApiTokenFromUpdateError (ResponseWasNotSuccessful st) = ResponseWasNotSuccessful st
 removeApiTokenFromUpdateError (ConversionError jsonException) = ConversionError (removeApiTokenFromJsonException jsonException)
 removeApiTokenFromUpdateError (ExceptionError x) = ExceptionError x
 removeApiTokenFromUpdateError (ParseUrlError x) = ParseUrlError x
