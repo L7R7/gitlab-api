@@ -48,7 +48,7 @@ fetchData baseUrl apiToken = fetchData' baseUrl apiToken id
 
 type RequestTransformer = Request -> Request
 
-fetchData' :: forall m a. (FromJSON a, MonadIO m) => BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> m (Either UpdateError a)
+fetchData' :: forall a m. (FromJSON a, MonadIO m) => BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> m (Either UpdateError a)
 fetchData' baseUrl apiToken reqTransformer = doReq (fmap f . httpLBS) baseUrl apiToken (addRequestHeader hAccept "application/json" . reqTransformer)
   where
     f :: Response L.ByteString -> Either UpdateError a
