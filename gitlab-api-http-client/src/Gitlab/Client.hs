@@ -17,6 +17,7 @@ import Control.Monad.IO.Class (MonadIO (liftIO))
 import Data.Aeson hiding (Value)
 import Data.Bifunctor (bimap)
 import Data.ByteString (ByteString)
+import Data.ByteString.Lazy qualified as L
 import Data.Either.Combinators (mapLeft, rightToMaybe)
 import Data.Foldable (find)
 import Data.Text (Text)
@@ -26,7 +27,7 @@ import Network.HTTP.Link.Parser (parseLinkHeaderBS)
 import Network.HTTP.Link.Types (Link (..), LinkParam (Rel), href)
 import Network.HTTP.Simple
 import Network.HTTP.Types (Status, statusIsSuccessful)
-import Network.HTTP.Types.Header (HeaderName)
+import Network.HTTP.Types.Header (HeaderName, hAccept)
 import Network.URI (URI)
 
 newtype BaseUrl = BaseUrl URI deriving newtype (Show)
@@ -35,9 +36,10 @@ newtype ApiToken = ApiToken Text deriving newtype (FromJSON, Show)
 
 data UpdateError
   = HttpError HttpException
-  | ResponseWasNotSuccessful Status -- todo: better error reporting. include the response body?
+  | ResponseWasNotSuccessful Status L.ByteString
   | ExceptionError SomeException
   | ConversionError JSONException
+  | ConversionError' String
   | ParseUrlError Text
   deriving stock (Show)
 
@@ -46,14 +48,14 @@ fetchData baseUrl apiToken = fetchData' baseUrl apiToken id
 
 type RequestTransformer = Request -> Request
 
-fetchData' :: (FromJSON a, MonadIO m) => BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> m (Either UpdateError a)
-fetchData' = doReq (fmap f . httpJSONEither)
+fetchData' :: forall m a. (FromJSON a, MonadIO m) => BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> m (Either UpdateError a)
+fetchData' baseUrl apiToken reqTransformer = doReq (fmap f . httpLBS) baseUrl apiToken (addRequestHeader hAccept "application/json" . reqTransformer)
   where
-    f :: Response (Either JSONException a) -> Either UpdateError a
-    f response =
-      if statusIsSuccessful (getResponseStatus response)
-        then mapLeft ConversionError (getResponseBody response)
-        else Left $ ResponseWasNotSuccessful (getResponseStatus response)
+    f :: Response L.ByteString -> Either UpdateError a
+    f res =
+      if statusIsSuccessful (getResponseStatus res)
+        then mapLeft ConversionError' (eitherDecode (getResponseBody res))
+        else Left $ ResponseWasNotSuccessful (getResponseStatus res) (getResponseBody res)
 
 fetchDataPaginated :: (FromJSON a, MonadIO m) => ApiToken -> BaseUrl -> Template -> [(String, Value)] -> m (Either UpdateError [a])
 fetchDataPaginated apiToken baseUrl template vars =
@@ -106,8 +108,9 @@ isNextLink _ = False
 
 removeApiTokenFromUpdateError :: UpdateError -> UpdateError
 removeApiTokenFromUpdateError (HttpError httpException) = HttpError (removeApiTokenFromHttpException httpException)
-removeApiTokenFromUpdateError (ResponseWasNotSuccessful st) = ResponseWasNotSuccessful st
+removeApiTokenFromUpdateError (ResponseWasNotSuccessful st x) = ResponseWasNotSuccessful st x
 removeApiTokenFromUpdateError (ConversionError jsonException) = ConversionError (removeApiTokenFromJsonException jsonException)
+removeApiTokenFromUpdateError (ConversionError' s) = ConversionError' s
 removeApiTokenFromUpdateError (ExceptionError x) = ExceptionError x
 removeApiTokenFromUpdateError (ParseUrlError x) = ParseUrlError x
 
