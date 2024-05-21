@@ -7,7 +7,7 @@ variables:
 
 build:
   stage: build
-  image: haskell:9.2.5
+  image: haskell:9.6.5
   cache:
     paths:
       - .stack
