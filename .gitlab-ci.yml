@@ -16,7 +16,7 @@ build:
       - .stack-root
       - target
   script:
-    - stack test --test-arguments="--profile"
+    - stack test --system-ghc --test-arguments="--profile"
   artifacts:
     paths:
       - gitlab-api-test/test/resources/
