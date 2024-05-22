@@ -8,6 +8,7 @@ variables:
 build:
   stage: build
   image: haskell:9.4.8
+  timeout: 2h
   cache:
     paths:
       - .stack
