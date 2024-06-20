@@ -30,6 +30,7 @@ spec = do
               (Just (Ref "main"))
               True
               FastForward
+              "my-project"
               [reldir|my-team/my-project|]
               (Just True)
               (Just False)
@@ -47,6 +48,7 @@ spec = do
               Nothing
               True
               Merge
+              "my-project"
               [reldir|my-team/my-project|]
               Nothing
               Nothing

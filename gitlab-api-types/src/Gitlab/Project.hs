@@ -18,6 +18,7 @@ data Project = Project
     projectDefaultBranch :: Maybe Ref,
     projectMergeRequestsEnabled :: Bool,
     projectMergeMethod :: MergeMethod,
+    projectPath :: Text,
     projectPathWithNamespace :: Path Rel Dir,
     projectRemoveSourceBranchAfterMerge :: Maybe Bool,
     projectOnlyAllowMergeIfPipelineSucceeds :: Maybe Bool,
@@ -46,6 +47,8 @@ instance HasCodec Project where
           .= projectMergeRequestsEnabled
         <*> requiredField' "merge_method"
           .= projectMergeMethod
+        <*> requiredField' "path"
+          .= projectPath
         <*> requiredField' "path_with_namespace"
           .= projectPathWithNamespace
         <*> requiredField "remove_source_branch_after_merge" "Project-wide default value for this option in MRs. Is `null` when the user has not set it manually."

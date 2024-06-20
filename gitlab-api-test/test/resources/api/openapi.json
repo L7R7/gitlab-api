@@ -261,6 +261,9 @@
                         "nullable": true,
                         "type": "boolean"
                     },
+                    "path": {
+                        "type": "string"
+                    },
                     "path_with_namespace": {
                         "additionalProperties": true,
                         "description": "Path"
@@ -283,6 +286,7 @@
                     "web_url",
                     "merge_requests_enabled",
                     "merge_method",
+                    "path",
                     "path_with_namespace",
                     "remove_source_branch_after_merge",
                     "only_allow_merge_if_pipeline_succeeds",
