@@ -2,6 +2,7 @@ resolver: lts-21.22
 
 packages:
   - gitlab-api-http-client
+  - gitlab-api-http-client-mtl
   - gitlab-api-types
   - gitlab-api-servant
   - gitlab-api-test
