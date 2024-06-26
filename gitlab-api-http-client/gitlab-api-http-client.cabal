@@ -40,7 +40,6 @@ library
     , http-conduit
     , http-link-header
     , http-types
-    , lens
     , network-uri
     , text
   default-language: GHC2021

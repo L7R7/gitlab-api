@@ -11,18 +11,16 @@ where
 
 import Burrito
 import Control.Exception.Base (SomeException, try)
-import Control.Lens (Lens', Prism', Traversal', filtered, lens, prism', set, _1, _2)
 import Control.Monad (join)
 import Control.Monad.IO.Class (MonadIO (liftIO))
 import Data.Aeson hiding (Value)
 import Data.Bifunctor (bimap)
-import Data.ByteString (ByteString)
 import Data.ByteString.Lazy qualified as L
 import Data.Either.Combinators (mapLeft, rightToMaybe)
 import Data.Foldable (find)
 import Data.Text (Text)
 import Data.Text.Encoding (encodeUtf8)
-import Network.HTTP.Client.Conduit (HttpExceptionContent, requestFromURI, requestHeaders, responseTimeout, responseTimeoutMicro)
+import Network.HTTP.Client.Conduit (requestFromURI, requestHeaders, responseTimeout, responseTimeoutMicro)
 import Network.HTTP.Link.Parser (parseLinkHeaderBS)
 import Network.HTTP.Link.Types (Link (..), LinkParam (Rel), href)
 import Network.HTTP.Simple
@@ -117,29 +115,20 @@ removeApiTokenFromUpdateError (ExceptionError x) = ExceptionError x
 removeApiTokenFromUpdateError (ParseUrlError x) = ParseUrlError x
 
 removeApiTokenFromHttpException :: HttpException -> HttpException
-removeApiTokenFromHttpException = set (reqPrism . _1 . headers . tokenHeader) "xxxxx"
-
-reqPrism :: Prism' HttpException (Request, HttpExceptionContent)
-reqPrism = prism' (uncurry HttpExceptionRequest) extract
-  where
-    extract (HttpExceptionRequest request reason) = Just (request, reason)
-    extract _ = Nothing
-
-tokenHeader :: Traversal' RequestHeaders ByteString
-tokenHeader = traverse . filtered (\h -> fst h == privateToken) . _2
+removeApiTokenFromHttpException (HttpExceptionRequest request reason) = HttpExceptionRequest (removeApiTokenFromRequest request) reason
+removeApiTokenFromHttpException e = e
 
 privateToken :: HeaderName
 privateToken = "PRIVATE-TOKEN"
-
-headers :: Lens' Request RequestHeaders
-headers = lens getter setter
-  where
-    getter = requestHeaders
-    setter r h = r {requestHeaders = h}
 
 removeApiTokenFromJsonException :: JSONException -> JSONException
 removeApiTokenFromJsonException (JSONParseException request response parseError) = JSONParseException (removeApiTokenFromRequest request) response parseError
 removeApiTokenFromJsonException (JSONConversionException request response s) = JSONConversionException (removeApiTokenFromRequest request) response s
 
 removeApiTokenFromRequest :: RequestTransformer
-removeApiTokenFromRequest = set (headers . tokenHeader) "xxxxx"
+removeApiTokenFromRequest request = request {requestHeaders = newHeaders}
+  where
+    newHeaders = replaceToken <$> requestHeaders request
+    replaceToken header@(name, _)
+      | name == privateToken = (name, "xxxxx")
+      | otherwise = header

@@ -49,6 +49,5 @@ library:
     - http-conduit
     - http-link-header
     - http-types
-    - lens # todo: get rid of me!
     - network-uri
     - text
