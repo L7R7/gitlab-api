@@ -3,6 +3,8 @@ module Gitlab.Client.MTL
     fetchData',
     fetchDataPaginated,
     headRequest,
+    GC.ApiToken(..),
+    GC.BaseUrl(..),
     GC.UpdateError (..),
     HasApiToken (..),
     HasBaseUrl (..),
