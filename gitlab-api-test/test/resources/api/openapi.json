@@ -169,6 +169,27 @@
                         "nullable": true,
                         "type": "string"
                     },
+                    "detailed_merge_status": {
+                        "enum": [
+                            "approvals_syncing",
+                            "blocked_status",
+                            "checking",
+                            "ci_must_pass",
+                            "ci_still_running",
+                            "conflict",
+                            "discussions_not_resolved",
+                            "draft_status",
+                            "external_status_checks",
+                            "jira_association_missing",
+                            "mergeable",
+                            "need_rebase",
+                            "not_approved",
+                            "not_open",
+                            "requested_changes",
+                            "unchecked"
+                        ],
+                        "type": "string"
+                    },
                     "has_conflicts": {
                         "type": "boolean"
                     },
@@ -199,6 +220,7 @@
                     "title",
                     "work_in_progress",
                     "has_conflicts",
+                    "detailed_merge_status",
                     "created_at",
                     "web_url"
                 ],
