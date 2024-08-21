@@ -82,7 +82,7 @@ data JobStatus
   | Successful
   | SuccessfulWithWarnings
   | WaitingForResource
-  deriving stock (Bounded, Enum, Eq, Show, Generic)
+  deriving stock (Bounded, Enum, Eq, Ord, Show, Generic)
   deriving (FromJSON, ToJSON) via (Autodocodec JobStatus)
 
 instance HasCodec JobStatus where
