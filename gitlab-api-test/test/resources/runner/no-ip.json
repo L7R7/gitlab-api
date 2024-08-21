@@ -8,5 +8,9 @@
     "online": true,
     "paused": false,
     "runner_type": "instance_type",
-    "status": "online"
+    "status": "online",
+    "tag_list": [
+        "foo",
+        "bar"
+    ]
 }

@@ -27,6 +27,7 @@ spec = do
               False
               False
               (RunnerType "instance_type")
+              [RunnerTag "foo", RunnerTag "bar"]
               True
               (RunnerStatus "online")
       pureGoldenJSONValueFile "test/resources/runner/full.json" runner
@@ -41,6 +42,7 @@ spec = do
               False
               False
               (RunnerType "instance_type")
+              [RunnerTag "foo", RunnerTag "bar"]
               True
               (RunnerStatus "online")
       pureGoldenJSONValueFile "test/resources/runner/no-ip.json" runner
@@ -54,3 +56,5 @@ deriving newtype instance GenValid IpAddress
 deriving newtype instance GenValid RunnerType
 
 deriving newtype instance GenValid RunnerStatus
+
+deriving newtype instance GenValid RunnerTag

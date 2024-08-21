@@ -1,4 +1,4 @@
-module Gitlab.Runner (Runner (..), Description (..), IpAddress (..), RunnerType (..), RunnerStatus (..)) where
+module Gitlab.Runner (Runner (..), Description (..), IpAddress (..), RunnerType (..), RunnerStatus (..), RunnerTag (..)) where
 
 import Autodocodec
 import Data.Aeson (FromJSON, ToJSON)
@@ -17,6 +17,7 @@ data Runner = Runner
     runnerPaused :: Bool,
     runnerShared :: Bool,
     runnerType :: RunnerType,
+    runnerTagList :: [RunnerTag],
     runnerOnline :: Bool,
     runnerStatus :: RunnerStatus
   }
@@ -37,6 +38,7 @@ instance HasCodec Runner where
         <*> requiredField' "paused" .= runnerPaused
         <*> requiredField' "is_shared" .= runnerShared
         <*> requiredField' "runner_type" .= runnerType
+        <*> requiredField' "tag_list" .= runnerTagList
         <*> requiredField' "online" .= runnerOnline
         <*> requiredField' "status" .= runnerStatus
 
@@ -77,3 +79,12 @@ instance Validity RunnerStatus where
 
 instance HasCodec RunnerStatus where
   codec = dimapCodec RunnerStatus (\(RunnerStatus txt) -> txt) codec
+
+newtype RunnerTag = RunnerTag Text
+  deriving newtype (Eq, Show)
+
+instance Validity RunnerTag where
+  validate _ = valid
+
+instance HasCodec RunnerTag where
+  codec = dimapCodec RunnerTag (\(RunnerTag txt) -> txt) codec
