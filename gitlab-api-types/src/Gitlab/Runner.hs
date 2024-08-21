@@ -12,7 +12,7 @@ data Runner = Runner
   { runnerId :: Id Runner,
     runnerName :: Name Runner,
     runnerDescription :: Description,
-    runnerIpAddress :: IpAddress,
+    runnerIpAddress :: Maybe IpAddress,
     runnerActive :: Bool,
     runnerPaused :: Bool,
     runnerShared :: Bool,
@@ -32,7 +32,7 @@ instance HasCodec Runner where
         <$> requiredField' "id" .= runnerId
         <*> requiredField' "name" .= runnerName
         <*> requiredField' "description" .= runnerDescription
-        <*> requiredField' "ip_address" .= runnerIpAddress
+        <*> optionalFieldOrNull' "ip_address" .= runnerIpAddress
         <*> requiredField' "active" .= runnerActive
         <*> requiredField' "paused" .= runnerPaused
         <*> requiredField' "is_shared" .= runnerShared

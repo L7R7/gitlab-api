@@ -22,14 +22,28 @@ spec = do
               (Id 23)
               (Name "my-runner")
               (Description "this is my runner")
-              (IpAddress "127.0.0.1")
+              (Just $ IpAddress "127.0.0.1")
               True
               False
               False
               (RunnerType "instance_type")
               True
               (RunnerStatus "online")
-      pureGoldenJSONValueFile "test/resources/runner/runner.json" runner
+      pureGoldenJSONValueFile "test/resources/runner/full.json" runner
+    it "no ip address" $ do
+      let runner =
+            Runner
+              (Id 23)
+              (Name "my-runner")
+              (Description "this is my runner")
+              Nothing
+              True
+              False
+              False
+              (RunnerType "instance_type")
+              True
+              (RunnerStatus "online")
+      pureGoldenJSONValueFile "test/resources/runner/no-ip.json" runner
 
 instance GenValid Runner
 

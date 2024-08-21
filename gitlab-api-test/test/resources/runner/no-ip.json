@@ -1,0 +1,12 @@
+{
+    "active": true,
+    "description": "this is my runner",
+    "id": 23,
+    "ip_address": null,
+    "is_shared": false,
+    "name": "my-runner",
+    "online": true,
+    "paused": false,
+    "runner_type": "instance_type",
+    "status": "online"
+}

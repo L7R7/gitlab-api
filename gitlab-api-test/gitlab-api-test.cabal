@@ -28,7 +28,8 @@ extra-source-files:
     test/resources/package/package.json
     test/resources/project/project-no-optional-fields.json
     test/resources/project/project.json
-    test/resources/runner/runner.json
+    test/resources/runner/full.json
+    test/resources/runner/no-ip.json
 
 source-repository head
   type: git
