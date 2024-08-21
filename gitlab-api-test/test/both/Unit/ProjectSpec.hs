@@ -30,6 +30,7 @@ spec = do
               (Just (Ref "main"))
               True
               FastForward
+              (ProjectNamespace (Id 456) (ProjectNamespaceFullPath [reldir|myteam/my-project|]))
               "my-project"
               [reldir|my-team/my-project|]
               (Just True)
@@ -48,6 +49,7 @@ spec = do
               Nothing
               True
               Merge
+              (ProjectNamespace (Id 456) (ProjectNamespaceFullPath [reldir|myteam/my-project|]))
               "my-project"
               [reldir|my-team/my-project|]
               Nothing
@@ -60,5 +62,9 @@ spec = do
 instance GenValid Project
 
 instance GenValid MergeMethod
+
+instance GenValid ProjectNamespace
+
+instance GenValid ProjectNamespaceFullPath
 
 deriving newtype instance GenValid Ref

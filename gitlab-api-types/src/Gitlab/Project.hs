@@ -1,4 +1,4 @@
-module Gitlab.Project (Project (..), MergeMethod (..)) where
+module Gitlab.Project (Project (..), MergeMethod (..), ProjectNamespace (..), ProjectNamespaceFullPath (..)) where
 
 import Autodocodec
 import Data.Aeson (FromJSON, ToJSON)
@@ -18,6 +18,7 @@ data Project = Project
     projectDefaultBranch :: Maybe Ref,
     projectMergeRequestsEnabled :: Bool,
     projectMergeMethod :: MergeMethod,
+    projectNamespace :: ProjectNamespace,
     projectPath :: Text,
     projectPathWithNamespace :: Path Rel Dir,
     projectRemoveSourceBranchAfterMerge :: Maybe Bool,
@@ -47,6 +48,8 @@ instance HasCodec Project where
           .= projectMergeRequestsEnabled
         <*> requiredField' "merge_method"
           .= projectMergeMethod
+        <*> requiredField' "namespace"
+          .= projectNamespace
         <*> requiredField' "path"
           .= projectPath
         <*> requiredField' "path_with_namespace"
@@ -69,3 +72,29 @@ instance HasCodec MergeMethod where
   codec = stringConstCodec $ (Merge, "merge") :| [(RebaseMerge, "rebase_merge"), (FastForward, "ff")]
 
 instance Validity MergeMethod
+
+data ProjectNamespace = ProjectNamespace
+  { projectNamespaceId :: Id ProjectNamespace,
+    projectNamespaceFullPath :: ProjectNamespaceFullPath
+  }
+  deriving stock (Eq, Generic, Show)
+
+instance HasCodec ProjectNamespace where
+  codec =
+    object "ProjectNamespace" $
+      ProjectNamespace
+        <$> requiredField' "id"
+          .= projectNamespaceId
+        <*> requiredField' "full_path"
+          .= projectNamespaceFullPath
+
+instance Validity ProjectNamespace
+
+newtype ProjectNamespaceFullPath = ProjectNamespaceFullPath {getFullPath :: Path Rel Dir}
+  deriving stock (Generic)
+  deriving newtype (Eq, Ord, Show)
+
+instance HasCodec ProjectNamespaceFullPath where
+  codec = dimapCodec ProjectNamespaceFullPath getFullPath codec
+
+instance Validity ProjectNamespaceFullPath

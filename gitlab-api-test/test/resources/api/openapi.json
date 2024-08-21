@@ -273,6 +273,9 @@
                     "name": {
                         "type": "string"
                     },
+                    "namespace": {
+                        "$ref": "#/components/schemas/ProjectNamespace"
+                    },
                     "only_allow_merge_if_all_discussions_are_resolved": {
                         "description": "Project-wide default value for this option in MRs. Is `null` when the user has not set it manually.",
                         "nullable": true,
@@ -308,12 +311,31 @@
                     "web_url",
                     "merge_requests_enabled",
                     "merge_method",
+                    "namespace",
                     "path",
                     "path_with_namespace",
                     "remove_source_branch_after_merge",
                     "only_allow_merge_if_pipeline_succeeds",
                     "only_allow_merge_if_all_discussions_are_resolved",
                     "ssh_url_to_repo"
+                ],
+                "type": "object"
+            },
+            "ProjectNamespace": {
+                "properties": {
+                    "full_path": {
+                        "additionalProperties": true,
+                        "description": "Path"
+                    },
+                    "id": {
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "id",
+                    "full_path"
                 ],
                 "type": "object"
             },
