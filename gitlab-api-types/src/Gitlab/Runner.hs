@@ -10,7 +10,7 @@ import Gitlab.Lib
 -- | runner representation for the list of runners
 data Runner = Runner
   { runnerId :: Id Runner,
-    runnerName :: Name Runner,
+    runnerName :: Maybe (Name Runner),
     runnerDescription :: Description,
     runnerIpAddress :: Maybe IpAddress,
     runnerActive :: Bool,
@@ -31,7 +31,7 @@ instance HasCodec Runner where
     object "Runner" $
       Runner
         <$> requiredField' "id" .= runnerId
-        <*> requiredField' "name" .= runnerName
+        <*> optionalFieldOrNull' "name" .= runnerName
         <*> requiredField' "description" .= runnerDescription
         <*> optionalFieldOrNull' "ip_address" .= runnerIpAddress
         <*> requiredField' "active" .= runnerActive

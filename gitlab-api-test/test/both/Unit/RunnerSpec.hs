@@ -20,7 +20,7 @@ spec = do
       let runner =
             Runner
               (Id 23)
-              (Name "my-runner")
+              (Just $ Name "my-runner")
               (Description "this is my runner")
               (Just $ IpAddress "127.0.0.1")
               True
@@ -31,11 +31,11 @@ spec = do
               True
               (RunnerStatus "online")
       pureGoldenJSONValueFile "test/resources/runner/full.json" runner
-    it "no ip address" $ do
+    it "no optional fields" $ do
       let runner =
             Runner
               (Id 23)
-              (Name "my-runner")
+              Nothing
               (Description "this is my runner")
               Nothing
               True
@@ -45,7 +45,7 @@ spec = do
               [RunnerTag "foo", RunnerTag "bar"]
               True
               (RunnerStatus "online")
-      pureGoldenJSONValueFile "test/resources/runner/no-ip.json" runner
+      pureGoldenJSONValueFile "test/resources/runner/no-optional-fields.json" runner
 
 instance GenValid Runner
 

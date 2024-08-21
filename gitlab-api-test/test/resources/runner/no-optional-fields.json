@@ -4,7 +4,7 @@
     "id": 23,
     "ip_address": null,
     "is_shared": false,
-    "name": "my-runner",
+    "name": null,
     "online": true,
     "paused": false,
     "runner_type": "instance_type",
