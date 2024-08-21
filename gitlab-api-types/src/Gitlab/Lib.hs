@@ -16,7 +16,7 @@ import Path
 import Web.HttpApiData (FromHttpApiData, ToHttpApiData)
 
 newtype Id a = Id {getId :: Int}
-  deriving newtype (Eq, Show, FromHttpApiData, ToHttpApiData)
+  deriving newtype (Eq, Ord, Show, FromHttpApiData, ToHttpApiData)
   deriving stock (Generic)
 
 instance Validity (Id a) where
