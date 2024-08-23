@@ -7,7 +7,7 @@ variables:
 
 build:
   stage: build
-  image: fpco/stack-build:lts-22.22
+  image: fpco/stack-build:lts-21.22
   timeout: 2h
   cache:
     paths:
