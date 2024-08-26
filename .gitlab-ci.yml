@@ -2,8 +2,8 @@ stages:
   - build
   - deploy
 
-variables:
-  STACK_ROOT: "${CI_PROJECT_DIR}/.stack-root"
+    #variables:
+    #STACK_ROOT: "${CI_PROJECT_DIR}/.stack-root"
 
 build:
   stage: build
