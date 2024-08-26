@@ -17,7 +17,7 @@ spec = do
   describe "golden tests" $ do
     it "Package" $ do
       let package = Package (Id 12) (Name "my-package") "1.2.3" "maven" (PackageLinks "/my-group/my-package")
-      pureGoldenJSONValueFile "test/resources/package/package.json" package
+      pureGoldenJSONValueFile "test_resources/package/package.json" package
 
 instance GenValid Package
 

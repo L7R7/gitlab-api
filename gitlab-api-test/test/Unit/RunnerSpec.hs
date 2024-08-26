@@ -30,7 +30,7 @@ spec = do
               [RunnerTag "foo", RunnerTag "bar"]
               True
               (RunnerStatus "online")
-      pureGoldenJSONValueFile "test/resources/runner/full.json" runner
+      pureGoldenJSONValueFile "test_resources/runner/full.json" runner
     it "no optional fields" $ do
       let runner =
             Runner
@@ -45,7 +45,7 @@ spec = do
               [RunnerTag "foo", RunnerTag "bar"]
               True
               (RunnerStatus "online")
-      pureGoldenJSONValueFile "test/resources/runner/no-optional-fields.json" runner
+      pureGoldenJSONValueFile "test_resources/runner/no-optional-fields.json" runner
 
 instance GenValid Runner
 

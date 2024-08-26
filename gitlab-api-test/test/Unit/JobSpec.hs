@@ -39,7 +39,7 @@ spec = do
                 Nothing
                 (Url $$(staticURI "https://my.gitlab.com/my-group/my-project/-/jobs/4028634"))
                 [Tag "my-tag", Tag "my-other-tag"]
-        pureGoldenJSONValueFile "test/resources/job/no-failure-reason.json" job
+        pureGoldenJSONValueFile "test_resources/job/no-failure-reason.json" job
     it "full job (with failure reason)" $
       do
         let job =
@@ -59,7 +59,7 @@ spec = do
                 (Just "it's broken")
                 (Url $$(staticURI "https://my.gitlab.com/my-group/my-project/-/jobs/4028634"))
                 [Tag "my-tag", Tag "my-other-tag"]
-        pureGoldenJSONValueFile "test/resources/job/with-failure-reason.json" job
+        pureGoldenJSONValueFile "test_resources/job/with-failure-reason.json" job
 
 instance GenValid Job
 

@@ -8,7 +8,7 @@ copyright: "2023 Leonhard Riedißer"
 language: GHC2021
 
 extra-source-files:
-  - test/resources/**/*
+  - test_resources/**/*
 
 description: Please see the README on GitHub at <https://github.com/L7R7/gitlab-api#readme>
 
@@ -38,7 +38,7 @@ default-extensions:
 tests:
   test:
     main: Main.hs
-    source-dirs: test/both
+    source-dirs: test
     build-tools: sydtest-discover
     ghc-options:
       - -threaded

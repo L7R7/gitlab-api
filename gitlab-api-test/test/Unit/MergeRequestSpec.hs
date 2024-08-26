@@ -31,7 +31,7 @@ spec = do
               DiscussionsNotResolved
               (parseTime "2024-02-29")
               (Url $$(staticURI "https://my.gitlab.com/my-merge-request"))
-      pureGoldenJSONValueFile "test/resources/merge-request/full.json" mergeRequest
+      pureGoldenJSONValueFile "test_resources/merge-request/full.json" mergeRequest
     it "no description" $ do
       let mergeRequest =
             MergeRequest
@@ -44,7 +44,7 @@ spec = do
               DiscussionsNotResolved
               (parseTime "2024-02-29")
               (Url $$(staticURI "https://my.gitlab.com/my-merge-request"))
-      pureGoldenJSONValueFile "test/resources/merge-request/no-description.json" mergeRequest
+      pureGoldenJSONValueFile "test_resources/merge-request/no-description.json" mergeRequest
 
 instance GenValid MergeRequest
 

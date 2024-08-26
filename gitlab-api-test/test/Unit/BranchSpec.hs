@@ -28,7 +28,7 @@ spec = do
               True
               (Url $$(staticURI "https://my.gitlab.com/my-project/my-branch"))
               (Commit (parseTime "2024-02-29"))
-      pureGoldenJSONValueFile "test/resources/branch/branch.json" branch
+      pureGoldenJSONValueFile "test_resources/branch/branch.json" branch
 
 instance GenValid Branch
 
