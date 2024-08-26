@@ -9,5 +9,7 @@ packages:
 
 extra-deps: []
 
+system-ghc: true
+
 ghc-options:
   $everything: -split-sections
