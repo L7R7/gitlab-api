@@ -3,6 +3,8 @@ resolver: lts-22.33
 packages:
   - gitlab-api-http-client
   - gitlab-api-http-client-mtl
+  - gitlab-api-http-client-queued
+  - gitlab-api-http-client-queued-mtl
   - gitlab-api-types
   - gitlab-api-servant
   - gitlab-api-test

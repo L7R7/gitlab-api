@@ -1,0 +1,52 @@
+name: gitlab-api-http-client-queued-mtl
+version: 0.0.0.1
+github: "L7R7/gitlab-api"
+license: BSD3
+author: "Leonhard Riedißer"
+maintainer: "leo008180@googlemail.com"
+copyright: "2023 Leonhard Riedißer"
+language: GHC2021
+
+extra-source-files: []
+
+description: Please see the README on GitHub at <https://github.com/L7R7/gitlab-api#readme>
+
+ghc-options:
+  - -fwrite-ide-info
+  - -hiedir=.hie
+  - -Wall
+  - -Wcompat
+  - -Widentities
+  - -Wincomplete-uni-patterns
+  - -Wincomplete-record-updates
+  - -Wredundant-constraints
+  - -fhide-source-paths
+  - -Wpartial-fields
+  - -Wmissing-deriving-strategies
+  - -Wunused-packages
+  - -Wmissing-export-lists
+
+dependencies:
+  - base >= 4.7 && < 5
+
+default-extensions:
+  - DerivingStrategies
+  - DerivingVia
+  - OverloadedStrings
+
+library:
+  source-dirs: src
+  ghc-options:
+    - -O2
+    - -flate-specialise
+    - -fspecialise-aggressively
+    - -frefinement-level-hole-fits=3
+  dependencies:
+    - gitlab-api-http-client
+    - gitlab-api-http-client-mtl
+    - gitlab-api-http-client-queued
+    - aeson
+    - burrito
+    - exceptions
+    - text
+    - unliftio-core

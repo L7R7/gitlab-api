@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           gitlab-api-http-client
+name:           gitlab-api-http-client-queued-mtl
 version:        0.0.0.1
 description:    Please see the README on GitHub at <https://github.com/L7R7/gitlab-api#readme>
 homepage:       https://github.com/L7R7/gitlab-api#readme
@@ -21,11 +21,9 @@ source-repository head
 
 library
   exposed-modules:
-      Gitlab.Client
-      Gitlab.Internal.Types
-      Gitlab.Internal.Util
+      Gitlab.Client.Queue.MTL
   other-modules:
-      Paths_gitlab_api_http_client
+      Paths_gitlab_api_http_client_queued_mtl
   hs-source-dirs:
       src
   default-extensions:
@@ -37,11 +35,10 @@ library
       aeson
     , base >=4.7 && <5
     , burrito
-    , bytestring
-    , either
-    , http-conduit
-    , http-link-header
-    , http-types
-    , network-uri
+    , exceptions
+    , gitlab-api-http-client
+    , gitlab-api-http-client-mtl
+    , gitlab-api-http-client-queued
     , text
+    , unliftio-core
   default-language: GHC2021
