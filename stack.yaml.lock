@@ -3,70 +3,10 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages:
-- completed:
-    hackage: genvalidity-path-1.0.0.1@sha256:011b875a98c7c05c61bbf60505e8d8ff4333ccc65ca6cb9ec3669d775c98959e,1814
-    pantry-tree:
-      sha256: f78e554fca32a08b94e57eaf298e9c10032313edb48cd76f3a974a4a86cd1a73
-      size: 411
-  original:
-    hackage: genvalidity-path-1.0.0.1@sha256:011b875a98c7c05c61bbf60505e8d8ff4333ccc65ca6cb9ec3669d775c98959e,1814
-- completed:
-    hackage: validity-network-uri-0.0.0.1@sha256:ecb0b4e62b6a4620e1049340371441667a5ccbe5d76b225f74ac6767357da29a,926
-    pantry-tree:
-      sha256: e5690d71d477f216faf093ef87bd22565f8a4ffd54925268f77d48b95390d367
-      size: 188
-  original:
-    hackage: validity-network-uri-0.0.0.1@sha256:ecb0b4e62b6a4620e1049340371441667a5ccbe5d76b225f74ac6767357da29a,926
-- completed:
-    hackage: validity-path-0.4.0.1@sha256:559046896c92ddb2b1f831c8d6b33a07246d9e98a6e27d226f451ee69af882d0,1432
-    pantry-tree:
-      sha256: 0ece151d5a19f4eeb6e9460b07bb4972bfce423e4a76cc0e3cf31398773a0706
-      size: 345
-  original:
-    hackage: validity-path-0.4.0.1@sha256:559046896c92ddb2b1f831c8d6b33a07246d9e98a6e27d226f451ee69af882d0,1432
-- completed:
-    name: sydtest
-    pantry-tree:
-      sha256: ffeab458e0bd35d48f0e52516a3d03269e39e58656846059790812e234274598
-      size: 3999
-    sha256: 36ef3f33a80f721699d3ebde561312fbcb30bf9724ff05d060504473acd6d902
-    size: 355814
-    subdir: sydtest
-    url: https://github.com/NorfairKing/sydtest/archive/3501bfb908a384e1f90e174f9b0f6e0a31c6dc5d.tar.gz
-    version: 0.15.0.0
-  original:
-    subdir: sydtest
-    url: https://github.com/NorfairKing/sydtest/archive/3501bfb908a384e1f90e174f9b0f6e0a31c6dc5d.tar.gz
-- completed:
-    name: sydtest-aeson
-    pantry-tree:
-      sha256: 0ae1f98144715076d09dce21098eac6a49508d9d64b90c0f318690845ac37f92
-      size: 784
-    sha256: 36ef3f33a80f721699d3ebde561312fbcb30bf9724ff05d060504473acd6d902
-    size: 355814
-    subdir: sydtest-aeson
-    url: https://github.com/NorfairKing/sydtest/archive/3501bfb908a384e1f90e174f9b0f6e0a31c6dc5d.tar.gz
-    version: 0.1.0.0
-  original:
-    subdir: sydtest-aeson
-    url: https://github.com/NorfairKing/sydtest/archive/3501bfb908a384e1f90e174f9b0f6e0a31c6dc5d.tar.gz
-- completed:
-    name: sydtest-discover
-    pantry-tree:
-      sha256: a417ce31620a7aafd087da993837ecfa48cbf823cd48cec624edbd58a5f2cc2e
-      size: 485
-    sha256: 36ef3f33a80f721699d3ebde561312fbcb30bf9724ff05d060504473acd6d902
-    size: 355814
-    subdir: sydtest-discover
-    url: https://github.com/NorfairKing/sydtest/archive/3501bfb908a384e1f90e174f9b0f6e0a31c6dc5d.tar.gz
-    version: 0.0.0.3
-  original:
-    subdir: sydtest-discover
-    url: https://github.com/NorfairKing/sydtest/archive/3501bfb908a384e1f90e174f9b0f6e0a31c6dc5d.tar.gz
+packages: []
 snapshots:
 - completed:
-    sha256: a81fb3877c4f9031e1325eb3935122e608d80715dc16b586eb11ddbff8671ecd
-    size: 640086
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/21/25.yaml
-  original: lts-21.25
+    sha256: 098936027eaa1ef14e2b8eb39d9933a973894bb70a68684a1bbf00730249879b
+    size: 720001
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/33.yaml
+  original: lts-22.33

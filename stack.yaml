@@ -1,4 +1,4 @@
-resolver: lts-21.25
+resolver: lts-22.33
 
 packages:
   - gitlab-api-http-client
@@ -7,16 +7,7 @@ packages:
   - gitlab-api-servant
   - gitlab-api-test
 
-extra-deps:
-  - genvalidity-path-1.0.0.1@sha256:011b875a98c7c05c61bbf60505e8d8ff4333ccc65ca6cb9ec3669d775c98959e,1814
-  - validity-network-uri-0.0.0.1@sha256:ecb0b4e62b6a4620e1049340371441667a5ccbe5d76b225f74ac6767357da29a,926
-  - validity-path-0.4.0.1@sha256:559046896c92ddb2b1f831c8d6b33a07246d9e98a6e27d226f451ee69af882d0,1432
-  - github: NorfairKing/sydtest
-    commit: 3501bfb908a384e1f90e174f9b0f6e0a31c6dc5d
-    subdirs:
-      - sydtest
-      - sydtest-aeson
-      - sydtest-discover
+extra-deps: []
 
 ghc-options:
   $everything: -split-sections
