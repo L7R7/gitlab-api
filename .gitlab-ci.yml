@@ -19,7 +19,7 @@ build:
     - stack test --system-ghc --test-arguments="--profile"
   artifacts:
     paths:
-      - gitlab-api-test/test/resources/
+      - gitlab-api-test/test_resources/
       - gitlab-api-test/sydtest-profile.html
 
 pages:
