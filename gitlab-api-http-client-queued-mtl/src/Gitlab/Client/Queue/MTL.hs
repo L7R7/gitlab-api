@@ -1,5 +1,6 @@
 module Gitlab.Client.Queue.MTL
   ( fetchDataQueued,
+    GCQ.QueueConfig(..),
     GC.ApiToken (..),
     GC.BaseUrl (..),
     GC.UpdateError (..),
