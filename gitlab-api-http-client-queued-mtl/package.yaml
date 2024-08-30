@@ -48,5 +48,4 @@ library:
     - aeson
     - burrito
     - exceptions
-    - text
     - unliftio-core

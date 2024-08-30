@@ -3,6 +3,7 @@ module Gitlab.Client.Queue
     ApiToken (..),
     UpdateError (..),
     QueueConfig (..),
+    ProcessResult (..),
     fetchDataQueued,
   )
 where
@@ -15,6 +16,7 @@ import Control.Monad.IO.Unlift
 import Data.Aeson hiding (Value)
 import Data.Either.Combinators (mapLeft)
 import Data.Foldable (traverse_)
+import Data.List.NonEmpty
 import Data.Text
 import Gitlab.Internal.Types
 import Gitlab.Internal.Util
@@ -29,6 +31,8 @@ data QueueConfig = QueueConfig
     bufferSize :: Int
   }
 
+data ProcessResult a = Empty | Result a | PrintLines (NonEmpty Text) | PrintLinesWithResult (NonEmpty Text) a
+
 fetchDataQueued ::
   forall a b m.
   (FromJSON a, MonadUnliftIO m, MonadMask m) =>
@@ -37,7 +41,7 @@ fetchDataQueued ::
   Template ->
   [(String, Value)] ->
   QueueConfig ->
-  (a -> m (Either UpdateError ([Text], b))) ->
+  (a -> m (Either UpdateError (ProcessResult b))) ->
   m (Either UpdateError [b])
 fetchDataQueued baseUrl apiToken template vars (QueueConfig parallelism bufferSize) processFunction = withConcurrentOutput $ do
   queue <- liftIO $ newTBMQueueIO bufferSize
@@ -51,7 +55,14 @@ fetchDataQueued baseUrl apiToken template vars (QueueConfig parallelism bufferSi
             res' <- processFunction a
             case res' of
               Left err -> pure $ Left err
-              Right (linesToPrint, b) -> do
+              Right Empty ->
+                processFromQueue' acc
+              Right (Result b) ->
+                processFromQueue' (b : acc)
+              Right (PrintLines linesToPrint) -> do
+                traverse_ (\line -> liftIO $ outputConcurrent $ line <> "\n") linesToPrint
+                processFromQueue' acc
+              Right (PrintLinesWithResult linesToPrint b) -> do
                 traverse_ (\line -> liftIO $ outputConcurrent $ line <> "\n") linesToPrint
                 processFromQueue' (b : acc)
       enqueue request = do

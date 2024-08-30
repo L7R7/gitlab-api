@@ -1,6 +1,7 @@
 module Gitlab.Client.Queue.MTL
   ( fetchDataQueued,
-    GCQ.QueueConfig(..),
+    GCQ.QueueConfig (..),
+    GCQ.ProcessResult (..),
     GC.ApiToken (..),
     GC.BaseUrl (..),
     GC.UpdateError (..),
@@ -13,7 +14,6 @@ import Burrito
 import Control.Monad.Catch (MonadMask)
 import Control.Monad.IO.Unlift (MonadUnliftIO)
 import Data.Aeson (FromJSON)
-import Data.Text
 import Gitlab.Client qualified as GC
 import Gitlab.Client.MTL qualified as GCM
 import Gitlab.Client.Queue qualified as GCQ
@@ -24,7 +24,7 @@ fetchDataQueued ::
   Template ->
   [(String, Value)] ->
   GCQ.QueueConfig ->
-  (a -> m (Either GC.UpdateError ([Text], b))) ->
+  (a -> m (Either GC.UpdateError (GCQ.ProcessResult b))) ->
   m (Either GC.UpdateError [b])
 fetchDataQueued template vars queueConfig processFunction = do
   baseUrl <- GCM.getBaseUrl

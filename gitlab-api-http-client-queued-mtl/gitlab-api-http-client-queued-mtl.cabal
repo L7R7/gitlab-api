@@ -39,6 +39,5 @@ library
     , gitlab-api-http-client
     , gitlab-api-http-client-mtl
     , gitlab-api-http-client-queued
-    , text
     , unliftio-core
   default-language: GHC2021
