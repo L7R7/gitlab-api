@@ -25,7 +25,8 @@ data Project = Project
     projectOnlyAllowMergeIfPipelineSucceeds :: Maybe Bool,
     projectOnlyAllowMergeIfAllDiscussionsAreResolved :: Maybe Bool,
     projectAutoCancelPendingPipelines :: Maybe EnabledDisabled,
-    projectSshUrlToRepo :: Text
+    projectSshUrlToRepo :: Text,
+    projectEmptyRepo :: Bool
   }
   deriving stock (Eq, Show, Generic)
   deriving (FromJSON, ToJSON) via (Autodocodec Project)
@@ -64,6 +65,8 @@ instance HasCodec Project where
           .= projectAutoCancelPendingPipelines
         <*> requiredField' "ssh_url_to_repo"
           .= projectSshUrlToRepo
+        <*> requiredField' "empty_repo"
+          .= projectEmptyRepo
 
 data MergeMethod = Merge | RebaseMerge | FastForward
   deriving stock (Eq, Show, Generic)

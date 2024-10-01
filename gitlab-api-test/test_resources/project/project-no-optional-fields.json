@@ -1,4 +1,5 @@
 {
+    "empty_repo": true,
     "id": 123,
     "merge_method": "merge",
     "merge_requests_enabled": true,

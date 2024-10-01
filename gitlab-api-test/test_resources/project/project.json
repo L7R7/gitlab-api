@@ -1,6 +1,7 @@
 {
     "auto_cancel_pending_pipelines": "enabled",
     "default_branch": "main",
+    "empty_repo": false,
     "id": 123,
     "merge_method": "ff",
     "merge_requests_enabled": true,

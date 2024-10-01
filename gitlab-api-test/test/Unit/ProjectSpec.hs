@@ -38,6 +38,7 @@ spec = do
               (Just True)
               (Just Enabled)
               "git@my.gitlab.com:group/subgroup/my-project.git"
+              False
       pureGoldenJSONValueFile "test_resources/project/project.json" project
 
     it "project without optional fields" $ do
@@ -57,6 +58,7 @@ spec = do
               Nothing
               Nothing
               "git@my.gitlab.com:group/subgroup/my-project.git"
+              True
       pureGoldenJSONValueFile "test_resources/project/project-no-optional-fields.json" project
 
 instance GenValid Project

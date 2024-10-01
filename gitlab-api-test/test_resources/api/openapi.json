@@ -254,6 +254,9 @@
                         "description": "default branch of the project. Will be missing if the project is empty",
                         "type": "string"
                     },
+                    "empty_repo": {
+                        "type": "boolean"
+                    },
                     "id": {
                         "maximum": 9223372036854775807,
                         "minimum": -9223372036854775808,
@@ -317,7 +320,8 @@
                     "remove_source_branch_after_merge",
                     "only_allow_merge_if_pipeline_succeeds",
                     "only_allow_merge_if_all_discussions_are_resolved",
-                    "ssh_url_to_repo"
+                    "ssh_url_to_repo",
+                    "empty_repo"
                 ],
                 "type": "object"
             },
