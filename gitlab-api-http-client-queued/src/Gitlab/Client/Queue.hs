@@ -72,9 +72,11 @@ fetchDataQueued baseUrl apiToken template vars (QueueConfig parallelism bufferSi
   case createRequest baseUrl apiToken id template vars of
     Left invalidUrl -> pure $ Left invalidUrl
     Right request ->
-      fmap join . sequence
-        <$> runConcurrently
-          (Concurrently (enqueue request) *> replicateM parallelism (Concurrently processFromQueue))
+      runConcurrently
+        ( (\enqueueing processors -> fmap join $ enqueueing *> sequence processors)
+            <$> Concurrently (enqueue request)
+            <*> replicateM parallelism (Concurrently processFromQueue)
+        )
 
 fetchDataQueued' :: forall a m. (FromJSON a, MonadUnliftIO m) => ApiToken -> Request -> TBMQueue a -> m (Either UpdateError ())
 fetchDataQueued' apiToken request queue = do
