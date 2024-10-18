@@ -15,7 +15,7 @@ import Test.Syd
 import Test.Syd.Validity
 
 groupsToCheck :: [Id Group]
-groupsToCheck = [Id 66, Id 15, Id 288]
+groupsToCheck = [Id 66, Id 15, Id 288, Id 254]
 
 spec :: TestDef ((ClientEnv, GitlabAPI (AsClientT ClientM)) : otherOuters) ()
 spec = beforeAllWith (pure . fmap group) $ describe "group" $ do
@@ -30,31 +30,36 @@ spec = beforeAllWith (pure . fmap group) $ describe "group" $ do
   describe "single group" $ do
     describe "get group" $
       for_ groupsToCheck $ \gId -> itWithOuter (show gId) $ \(clientEnv, GroupAPI _ singleGroupApi) -> do
-        let (SingleGroupAPI singleGroup _) = singleGroupApi gId
+        let (SingleGroupAPI singleGroup _ _) = singleGroupApi gId
         res <- runClientM singleGroup clientEnv
         shouldBeValid res
         (groupId <$> res) `shouldSatisfy` elem gId
     describe "get group projects" $ do
       for_ groupsToCheck $ \gId -> itWithOuter (show gId) $ \(clientEnv, GroupAPI _ singleGroupApi) -> do
-        let (SingleGroupAPI _ groupProjects) = singleGroupApi gId
+        let (SingleGroupAPI _ groupProjects _) = singleGroupApi gId
         res <- runClientM (groupProjects False False False) clientEnv
         shouldBeValid res
       -- (groupId <$> res) `shouldSatisfy` elem gId todo: revisit when there's a group link in the project?
       describe "with subgroups" $
         for_ groupsToCheck $ \gId -> itWithOuter (show gId) $ \(clientEnv, GroupAPI _ singleGroupApi) -> do
-          let (SingleGroupAPI _ groupProjects) = singleGroupApi gId
+          let (SingleGroupAPI _ groupProjects _) = singleGroupApi gId
           res <- runClientM (groupProjects True False False) clientEnv
           shouldBeValid res
       describe "with shared" $
         for_ groupsToCheck $ \gId -> itWithOuter (show gId) $ \(clientEnv, GroupAPI _ singleGroupApi) -> do
-          let (SingleGroupAPI _ groupProjects) = singleGroupApi gId
+          let (SingleGroupAPI _ groupProjects _) = singleGroupApi gId
           res <- runClientM (groupProjects False True False) clientEnv
           shouldBeValid res
       describe "with archived" $
         for_ groupsToCheck $ \gId -> itWithOuter (show gId) $ \(clientEnv, GroupAPI _ singleGroupApi) -> do
-          let (SingleGroupAPI _ groupProjects) = singleGroupApi gId
+          let (SingleGroupAPI _ groupProjects _) = singleGroupApi gId
           res <- runClientM (groupProjects False False True) clientEnv
           shouldBeValid res
+    describe "get group merge requests" $ do
+      for_ groupsToCheck $ \gId -> itWithOuter (show gId) $ \(clientEnv, GroupAPI _ singleGroupApi) -> do
+        let (SingleGroupAPI _ _ groupMergeRequests) = singleGroupApi gId
+        res <- runClientM groupMergeRequests clientEnv
+        shouldBeValid res
 
 instance Validity ClientError where
   validate (FailureResponse _ response) | responseStatusCode response == status404 = valid

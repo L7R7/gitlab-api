@@ -52,20 +52,27 @@ instance HasCodec MergeRequest where
 
 data DetailedMergeStatus
   = ApprovalsSyncing
-  | BlockedStatus
   | Checking
   | CIMustPass
   | CIStillRunning
+  | CommitsStatus
   | Conflict
   | DiscussionsNotResolved
   | DraftStatus
-  | ExternalStatusChecks
   | JiraAssociationMissing
+  | LockedPaths
+  | LockedLfsFiles
   | Mergeable
+  | MergeRequestBlocked
+  | MergeTime
   | NeedRebase
   | NotApproved
   | NotOpen
+  | Preparing
   | RequestedChanges
+  | SecurityPolicyEvaluation
+  | SecurityPolicyViolations
+  | StatusCheckMustPass
   | Unchecked
   deriving stock (Bounded, Enum, Eq, Show, Generic)
 
@@ -74,20 +81,27 @@ instance HasCodec DetailedMergeStatus where
 
 detailedMergeRequestStatusToApiRepresentation :: DetailedMergeStatus -> Text
 detailedMergeRequestStatusToApiRepresentation ApprovalsSyncing = "approvals_syncing"
-detailedMergeRequestStatusToApiRepresentation BlockedStatus = "blocked_status"
 detailedMergeRequestStatusToApiRepresentation Checking = "checking"
 detailedMergeRequestStatusToApiRepresentation CIMustPass = "ci_must_pass"
 detailedMergeRequestStatusToApiRepresentation CIStillRunning = "ci_still_running"
+detailedMergeRequestStatusToApiRepresentation CommitsStatus = "commits_status"
 detailedMergeRequestStatusToApiRepresentation Conflict = "conflict"
 detailedMergeRequestStatusToApiRepresentation DiscussionsNotResolved = "discussions_not_resolved"
 detailedMergeRequestStatusToApiRepresentation DraftStatus = "draft_status"
-detailedMergeRequestStatusToApiRepresentation ExternalStatusChecks = "external_status_checks"
 detailedMergeRequestStatusToApiRepresentation JiraAssociationMissing = "jira_association_missing"
+detailedMergeRequestStatusToApiRepresentation LockedPaths = "locked_paths"
+detailedMergeRequestStatusToApiRepresentation LockedLfsFiles = "locked_lfs_files"
 detailedMergeRequestStatusToApiRepresentation Mergeable = "mergeable"
+detailedMergeRequestStatusToApiRepresentation MergeRequestBlocked = "merge_request_blocked"
+detailedMergeRequestStatusToApiRepresentation MergeTime = "merge_time"
 detailedMergeRequestStatusToApiRepresentation NeedRebase = "need_rebase"
 detailedMergeRequestStatusToApiRepresentation NotApproved = "not_approved"
 detailedMergeRequestStatusToApiRepresentation NotOpen = "not_open"
+detailedMergeRequestStatusToApiRepresentation Preparing = "preparing"
 detailedMergeRequestStatusToApiRepresentation RequestedChanges = "requested_changes"
+detailedMergeRequestStatusToApiRepresentation SecurityPolicyEvaluation = "security_policy_evaluation"
+detailedMergeRequestStatusToApiRepresentation SecurityPolicyViolations = "security_policy_violations"
+detailedMergeRequestStatusToApiRepresentation StatusCheckMustPass = "status_check_must_pass"
 detailedMergeRequestStatusToApiRepresentation Unchecked = "unchecked"
 
 instance Validity DetailedMergeStatus

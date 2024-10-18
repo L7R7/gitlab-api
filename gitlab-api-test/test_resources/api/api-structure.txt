@@ -6,6 +6,8 @@
       │  ┆
       │  ┆
       │  └─ <group ID::Id * Group>/
+      │     ├─ merge_requests/
+      │     │  └─•
       │     ├─ projects/
       │     │  └─•
       │     └─•

@@ -4,6 +4,7 @@ module Gitlab.API.Group (API, GroupAPI (..), SingleGroupAPI (..)) where
 
 import Gitlab.Group qualified
 import Gitlab.Lib (Id)
+import Gitlab.MergeRequest qualified
 import Gitlab.Project qualified
 import Servant
 import Servant.API.Generic
@@ -24,6 +25,7 @@ data SingleGroupAPI mode = SingleGroupAPI
           :> QueryFlag "include_subgroups"
           :> QueryFlag "with_shared"
           :> QueryFlag "archived"
-          :> Get '[JSON] [Gitlab.Project.Project]
+          :> Get '[JSON] [Gitlab.Project.Project],
+    getMergeRequests :: mode :- "merge_requests" :> Get '[JSON] [Gitlab.MergeRequest.MergeRequest] -- todo: add support for query parameters
   }
   deriving stock (Generic)

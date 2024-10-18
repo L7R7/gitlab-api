@@ -172,20 +172,27 @@
                     "detailed_merge_status": {
                         "enum": [
                             "approvals_syncing",
-                            "blocked_status",
                             "checking",
                             "ci_must_pass",
                             "ci_still_running",
+                            "commits_status",
                             "conflict",
                             "discussions_not_resolved",
                             "draft_status",
-                            "external_status_checks",
                             "jira_association_missing",
+                            "locked_paths",
+                            "locked_lfs_files",
                             "mergeable",
+                            "merge_request_blocked",
+                            "merge_time",
                             "need_rebase",
                             "not_approved",
                             "not_open",
+                            "preparing",
                             "requested_changes",
+                            "security_policy_evaluation",
+                            "security_policy_violations",
+                            "status_check_must_pass",
                             "unchecked"
                         ],
                         "type": "string"
@@ -431,6 +438,47 @@
                             "application/json;charset=utf-8": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Group"
+                                }
+                            }
+                        },
+                        "description": ""
+                    },
+                    "400": {
+                        "description": "Invalid `PRIVATE-TOKEN`"
+                    },
+                    "404": {
+                        "description": "`group ID` not found"
+                    }
+                }
+            }
+        },
+        "/api/v4/groups/{group ID}/merge_requests": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "group ID",
+                        "required": true,
+                        "schema": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json;charset=utf-8": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/MergeRequest"
+                                    },
+                                    "type": "array"
                                 }
                             }
                         },
