@@ -18,7 +18,7 @@ newtype BaseUrl = BaseUrl URI deriving newtype (Show)
 
 newtype ApiToken = ApiToken Text deriving newtype (FromJSON, Show)
 
-newtype UserAgent = UserAgent Text deriving newtype (Show)
+newtype UserAgent = UserAgent Text deriving newtype (FromJSON, Show)
 
 type StatusCode = Int
 
