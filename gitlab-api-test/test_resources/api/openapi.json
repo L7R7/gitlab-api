@@ -385,6 +385,14 @@
                         }
                     },
                     {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "allowEmptyValue": true,
                         "in": "query",
                         "name": "all_available",
@@ -409,7 +417,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `all_available` or `PRIVATE-TOKEN`"
+                        "description": "Invalid `all_available` or `User-Agent` or `PRIVATE-TOKEN`"
                     }
                 }
             }
@@ -420,6 +428,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -444,7 +460,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `PRIVATE-TOKEN`"
+                        "description": "Invalid `User-Agent` or `PRIVATE-TOKEN`"
                     },
                     "404": {
                         "description": "`group ID` not found"
@@ -458,6 +474,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -485,7 +509,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `PRIVATE-TOKEN`"
+                        "description": "Invalid `User-Agent` or `PRIVATE-TOKEN`"
                     },
                     "404": {
                         "description": "`group ID` not found"
@@ -499,6 +523,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -553,7 +585,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `archived` or `with_shared` or `include_subgroups` or `PRIVATE-TOKEN`"
+                        "description": "Invalid `archived` or `with_shared` or `include_subgroups` or `User-Agent` or `PRIVATE-TOKEN`"
                     },
                     "404": {
                         "description": "`group ID` not found"
@@ -567,6 +599,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -585,7 +625,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `PRIVATE-TOKEN`"
+                        "description": "Invalid `User-Agent` or `PRIVATE-TOKEN`"
                     }
                 }
             }
@@ -596,6 +636,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -617,7 +665,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `PRIVATE-TOKEN`"
+                        "description": "Invalid `User-Agent` or `PRIVATE-TOKEN`"
                     }
                 }
             }
@@ -628,6 +676,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -652,7 +708,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `PRIVATE-TOKEN`"
+                        "description": "Invalid `User-Agent` or `PRIVATE-TOKEN`"
                     },
                     "404": {
                         "description": "`project ID` not found"
@@ -666,6 +722,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -696,7 +760,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `PRIVATE-TOKEN`"
+                        "description": "Invalid `User-Agent` or `PRIVATE-TOKEN`"
                     },
                     "404": {
                         "description": "`project ID` or `job ID` not found"
@@ -710,6 +774,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -751,7 +823,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `author_id` or `state` or `PRIVATE-TOKEN`"
+                        "description": "Invalid `author_id` or `state` or `User-Agent` or `PRIVATE-TOKEN`"
                     },
                     "404": {
                         "description": "`project ID` not found"
@@ -765,6 +837,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -792,7 +872,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `PRIVATE-TOKEN`"
+                        "description": "Invalid `User-Agent` or `PRIVATE-TOKEN`"
                     },
                     "404": {
                         "description": "`project ID` not found"
@@ -806,6 +886,14 @@
                     {
                         "in": "header",
                         "name": "PRIVATE-TOKEN",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -824,7 +912,7 @@
                         "description": ""
                     },
                     "400": {
-                        "description": "Invalid `PRIVATE-TOKEN`"
+                        "description": "Invalid `User-Agent` or `PRIVATE-TOKEN`"
                     }
                 }
             }

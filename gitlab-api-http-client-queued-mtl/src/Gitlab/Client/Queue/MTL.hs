@@ -6,6 +6,7 @@ module Gitlab.Client.Queue.MTL
     GC.BaseUrl (..),
     GC.UpdateError (..),
     GCM.HasApiToken (..),
+    GCM.HasUserAgent (..),
     GCM.HasBaseUrl (..),
   )
 where
@@ -20,7 +21,7 @@ import Gitlab.Client.Queue qualified as GCQ
 
 fetchDataQueued ::
   forall a b m.
-  (FromJSON a, MonadUnliftIO m, MonadMask m, GCM.HasApiToken m, GCM.HasBaseUrl m) =>
+  (FromJSON a, MonadUnliftIO m, MonadMask m, GCM.HasApiToken m, GCM.HasUserAgent m, GCM.HasBaseUrl m) =>
   Template ->
   [(String, Value)] ->
   GCQ.QueueConfig ->
@@ -28,5 +29,6 @@ fetchDataQueued ::
   m (Either GC.UpdateError [b])
 fetchDataQueued template vars queueConfig processFunction = do
   baseUrl <- GCM.getBaseUrl
+  userAgent <- GCM.getUserAgent
   apiToken <- GCM.getApiToken
-  GCQ.fetchDataQueued baseUrl apiToken template vars queueConfig processFunction
+  GCQ.fetchDataQueued baseUrl apiToken userAgent template vars queueConfig processFunction

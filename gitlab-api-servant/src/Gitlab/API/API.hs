@@ -8,7 +8,7 @@ import Gitlab.API.Meta qualified
 import Gitlab.API.Project qualified
 import Servant
 
-type API = Header "PRIVATE-TOKEN" String :> "api" :> "v4" :> NamedRoutes GitlabAPI
+type API = Header "PRIVATE-TOKEN" String :> Header "User-Agent" String :> "api" :> "v4" :> NamedRoutes GitlabAPI
 
 data GitlabAPI mode = GitlabAPI
   { meta :: mode :- Gitlab.API.Meta.API,

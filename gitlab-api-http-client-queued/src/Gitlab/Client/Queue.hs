@@ -1,6 +1,7 @@
 module Gitlab.Client.Queue
   ( BaseUrl (..),
     ApiToken (..),
+    UserAgent (..),
     UpdateError (..),
     QueueConfig (..),
     ProcessResult (..),
@@ -38,12 +39,13 @@ fetchDataQueued ::
   (FromJSON a, MonadUnliftIO m, MonadMask m) =>
   BaseUrl ->
   ApiToken ->
+  UserAgent ->
   Template ->
   [(String, Value)] ->
   QueueConfig ->
   (a -> m (Either UpdateError (ProcessResult b))) ->
   m (Either UpdateError [b])
-fetchDataQueued baseUrl apiToken template vars (QueueConfig parallelism bufferSize) processFunction = withConcurrentOutput $ do
+fetchDataQueued baseUrl apiToken userAgent template vars (QueueConfig parallelism bufferSize) processFunction = withConcurrentOutput $ do
   queue <- liftIO $ newTBMQueueIO bufferSize
   let processFromQueue = processFromQueue' []
       processFromQueue' acc = do
@@ -69,7 +71,7 @@ fetchDataQueued baseUrl apiToken template vars (QueueConfig parallelism bufferSi
         res <- fetchDataQueued' @a apiToken request queue
         _ <- atomically (closeTBMQueue queue)
         pure res
-  case createRequest baseUrl apiToken id template vars of
+  case createRequest baseUrl apiToken userAgent id template vars of
     Left invalidUrl -> pure $ Left invalidUrl
     Right request ->
       runConcurrently

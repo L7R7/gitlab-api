@@ -1,6 +1,7 @@
 module Gitlab.Internal.Types
   ( BaseUrl (..),
     ApiToken (..),
+    UserAgent (..),
     StatusCode,
     UpdateError (..),
   )
@@ -16,6 +17,8 @@ import Network.URI (URI)
 newtype BaseUrl = BaseUrl URI deriving newtype (Show)
 
 newtype ApiToken = ApiToken Text deriving newtype (FromJSON, Show)
+
+newtype UserAgent = UserAgent Text deriving newtype (Show)
 
 type StatusCode = Int
 

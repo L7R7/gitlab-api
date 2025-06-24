@@ -29,7 +29,7 @@ apiSpecSetup = do
     token <- maybePrivateToken
     baseUrl <- maybeBaseUrl
     pure $ do
-      let apiClient = client (Proxy @API) (Just token)
+      let apiClient = client (Proxy @API) (Just token) (Just "GitLab API bindings test lriedisser")
       (,apiClient) <$> clientEnvSetup baseUrl
 
 clientEnvSetup :: String -> IO ClientEnv

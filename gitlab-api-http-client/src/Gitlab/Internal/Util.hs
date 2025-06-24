@@ -5,6 +5,7 @@ module Gitlab.Internal.Util
     removeApiTokenFromUpdateError,
     setTimeout,
     addToken,
+    addUserAgent,
   )
 where
 
@@ -23,11 +24,11 @@ import Network.URI (URI)
 
 type RequestTransformer = Request -> Request
 
-createRequest :: BaseUrl -> ApiToken -> RequestTransformer -> Template -> [(String, Value)] -> Either UpdateError Request
-createRequest baseUrl apiToken reqTransformer template vars =
+createRequest :: BaseUrl -> ApiToken -> UserAgent -> RequestTransformer -> Template -> [(String, Value)] -> Either UpdateError Request
+createRequest baseUrl apiToken userAgent reqTransformer template vars =
   bimap
     ExceptionError
-    (reqTransformer . setTimeout . addToken apiToken)
+    (reqTransformer . setTimeout . addUserAgent userAgent . addToken apiToken)
     (parseRequest (show baseUrl <> "/" <> expand vars template))
 
 setTimeout :: RequestTransformer
@@ -35,6 +36,9 @@ setTimeout request = request {responseTimeout = responseTimeoutMicro 5000000}
 
 addToken :: ApiToken -> RequestTransformer
 addToken (ApiToken apiToken) = setRequestHeader "PRIVATE-TOKEN" [encodeUtf8 apiToken]
+
+addUserAgent :: UserAgent -> RequestTransformer
+addUserAgent (UserAgent userAgent) = addRequestHeader "User-Agent" (encodeUtf8 userAgent)
 
 parseNextRequest :: Response a -> Maybe Request
 parseNextRequest response = parseNextHeader response >>= rightToMaybe . requestFromURI
